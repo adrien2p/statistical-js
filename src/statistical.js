@@ -26,9 +26,9 @@ class Statistical {
     average(sets) {
         if (!sets) throw new Error('Missing parameter sets (average)');
 
-        const avg = Object.values(sets).map(set => {
-            if (!Array.isArray(set)) throw new Error('data set must be an array');
-            return this.sum(set) / set.length;
+        const avg = Object.keys(sets).map(key => {
+            if (!Array.isArray(sets[key])) throw new Error('data set must be an array');
+            return this.sum(sets[key]) / sets[key].length;
         });
 
         if (avg.length === 1) return avg[0];
@@ -45,11 +45,11 @@ class Statistical {
         if (!sets) throw new Error('Missing parameter sets (variance)');
 
         const avg = Object.keys(sets).length > 1 ? this.average(sets) : [this.average(sets)];
-        const n = Object.values(sets).map(set => set.length);
+        const n = Object.keys(sets).map(key => sets[key].length);
 
-        const variances = Object.values(sets).map((set, i) => {
-            if (!Array.isArray(set)) throw new Error('data set must be an array');
-            return this.sum(set.map(value => Math.pow(value - avg[i], 2))) / n[i];
+        const variances = Object.keys(sets).map((key, i) => {
+            if (!Array.isArray(sets[key])) throw new Error('data set must be an array');
+            return this.sum(sets[key].map(value => Math.pow(value - avg[i], 2))) / n[i];
         });
 
         if (variances.length === 1) return variances[0];
@@ -66,8 +66,8 @@ class Statistical {
         if (!sets) throw new Error('Missing parameter sets (variance)');
 
         const variances = Object.keys(sets).length > 1 ? this.variance(sets) : [this.variance(sets)];
-        const stdDeviations = Object.keys(sets).map((set, i) => {
-            if (!Array.isArray(set)) throw new Error('data set must be an array');
+        const stdDeviations = Object.keys(sets).map((key, i) => {
+            if (!Array.isArray(sets[key])) throw new Error('data set must be an array');
             return Math.sqrt(variances[i]);
         });
 
