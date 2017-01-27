@@ -12,67 +12,55 @@ class Statistical {
      */
     sum(set) {
         return set.reduce((a, b) => {
-            if (Number.isNaN(a) || Number.isNaN(b)) throw new Error('data set must contain only numbers');
+            if (Number.isNaN(a) || Number.isNaN(b)) throw new Error('dataSet must contain only numbers');
             return a + b;
         }, 0);
     }
 
-    /**
-     * Compute average for each data set provided in the object parameter
-     *
-     * @param {object} sets
-     * @returns {*}
-     */
-    average(sets) {
-        if (!sets) throw new Error('Missing parameter sets (average)');
+    median(set) {
 
-        const avg = Object.keys(sets).map(key => {
-            if (!Array.isArray(sets[key])) throw new Error('data set must be an array');
-            return this.sum(sets[key]) / sets[key].length;
-        });
-
-        if (avg.length === 1) return avg[0];
-        return avg;
     }
 
     /**
-     * Compute variance for each data set provided in the object parameter
+     * Compute average for dataSet
      *
-     * @param {object} sets
+     * @param {Array} set
      * @returns {*}
      */
-    variance(sets) {
-        if (!sets) throw new Error('Missing parameter sets (variance)');
+    average(set) {
+        if (!set) throw new Error('Missing parameter set (average)');
+        if (!Array.isArray(set)) throw new Error('dataSet must be an array (average)');
 
-        const avg = Object.keys(sets).length > 1 ? this.average(sets) : [this.average(sets)];
-        const n = Object.keys(sets).map(key => sets[key].length);
-
-        const variances = Object.keys(sets).map((key, i) => {
-            if (!Array.isArray(sets[key])) throw new Error('data set must be an array');
-            return this.sum(sets[key].map(value => Math.pow(value - avg[i], 2))) / n[i];
-        });
-
-        if (variances.length === 1) return variances[0];
-        return variances;
+        return this.sum(set) / set.length;;
     }
 
     /**
-     * Compute standard deviation for each data set provided in the object parameter
+     * Compute variance for dataSet
      *
-     * @param {object} sets
+     * @param {Array} set
      * @returns {*}
      */
-    stdDeviation(sets) {
-        if (!sets) throw new Error('Missing parameter sets (variance)');
+    variance(set) {
+        if (!set) throw new Error('Missing parameter set (variance)');
+        if (!Array.isArray(set)) throw new Error('dataSet must be an array (variance)');
 
-        const variances = Object.keys(sets).length > 1 ? this.variance(sets) : [this.variance(sets)];
-        const stdDeviations = Object.keys(sets).map((key, i) => {
-            if (!Array.isArray(sets[key])) throw new Error('data set must be an array');
-            return Math.sqrt(variances[i]);
-        });
+        const avg = this.average(set);
+        const n = set.length;
 
-        if (stdDeviations.length === 1) return stdDeviations[0];
-        return stdDeviations;
+        return this.sum(set.map(value => Math.pow(value - avg, 2))) / n;
+    }
+
+    /**
+     * Compute standard deviation for dataSet
+     *
+     * @param {Array} set
+     * @returns {*}
+     */
+    stdDeviation(set) {
+        if (!set) throw new Error('Missing parameter sets (stdDeviation)');
+        if (!Array.isArray(set)) throw new Error('dataSet must be an array (stdDeviation)');
+
+        return Math.sqrt(this.variance(set));
     }
 }
 
