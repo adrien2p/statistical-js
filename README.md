@@ -1,3 +1,6 @@
+[![Inline docs](http://inch-ci.org/github/adrien2p/statistical.js.svg?branch=master)](http://inch-ci.org/github/adrien2p/statistical.js)
+[![Build Status](https://travis-ci.org/adrien2p/statistical.js.svg?branch=master)](https://travis-ci.org/adrien2p/statistical.js)
+
 # statistical.js
 
 This library is work in progress...
