@@ -5,6 +5,9 @@ node_js:
 before_install:
   - npm install -g npm
 
+after_success:
+  - npm run test:coverage
+
 notifications:
   email:
     - adrien.deperetti.freelance@gmail.com
