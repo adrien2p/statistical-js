@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/adrien2p/statistical.js.svg?branch=master)](https://travis-ci.org/adrien2p/statistical.js)
 # statistical.js
 
 This library is work in progress...
