@@ -1,11 +1,7 @@
 const assert = require('chai').assert;
-const Statistical = require('../src/statistical');
+const statistical = require('../src/statistical');
 
 describe('Statistical', function () {
-    let statistical;
-
-    before(() => statistical = new Statistical());
-
     describe('should compute sum', () => {
         it('of an array of numbers', () => {
             const res = statistical.sum([1, 2, 3]);
