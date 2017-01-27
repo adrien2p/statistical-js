@@ -1,6 +1,3 @@
-[![Inline docs](http://inch-ci.org/github/adrien2p/statistical.js.svg?branch=master)](http://inch-ci.org/github/adrien2p/statistical.js)
-[![Build Status](https://travis-ci.org/adrien2p/statistical.js.svg?branch=master)](https://travis-ci.org/adrien2p/statistical.js)
-
 # statistical.js
 
 This library is work in progress...
@@ -19,7 +16,7 @@ const sets = {
     set3: [0, 1, 2, 3, 4]
 };
 ``` 
-Below, i've initialize 4 data set to use in below example.
+Above, i've initialize 4 data set to use in below example.
 
 ### Example
 
