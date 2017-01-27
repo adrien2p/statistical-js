@@ -93,5 +93,8 @@ console.log(variances);
 // 2
 ```
 
+### ...
 
+Above showed you some simple method and how to use them.
+To find the complete documentation, you can go to the [wiki !](https://github.com/adrien2p/statistical-js.wiki.git)
 
