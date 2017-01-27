@@ -2,63 +2,95 @@
 [![Coverage Status](https://coveralls.io/repos/github/adrien2p/statistical.js/badge.svg?branch=master)](https://coveralls.io/github/adrien2p/statistical.js?branch=master)
 # statistical.js
 
-This library is work in progress...
+This is a new statistics library, but i want to do my best.
 
 ## How to use
 
-statistical.js is really easy to use. 
+statistical.js is really easy to use in many sense.
 
 ```javascript
 const statistical = require('statistical');
-
-const sets = {
-    set1: [0, 1, 2, 3, 4],
-    set2: [0, 1, 2, 3, 4],
-    set3: [0, 1, 2, 3, 4],
-    set3: [0, 1, 2, 3, 4]
-};
-``` 
-Above, i've initialize 4 data set to use in below example.
+```
 
 ### Example
 
-> All methods presented below return the same pattern for them result.
-> - when only one dataSet is provided, the result will be a number.
-> - when multiple dataSet are provided, the result will be an array of number where each number correspond to a dataSe in the same order.
-
 #### Sum
 
-`statistical.sum({object})`
+`statistical.sum({Array})`
 
 ```javascript
-const sums = statistical.sum(sets);
+const dataSet = [0, 1, 2, 3, 4];
+const sums = statistical.sum(dataSet);
+
 console.log(sums);
 
 // Show in the console :
-// [10, 10, 10, 10]
+// 10
 ```
-#### Average
 
-`statistical.average({object})`
+#### Median
+
+`statistical.median({Array})`
 
 ```javascript
-const avgs = statistical.avg(sets);
-console.log(avgs);
+const odddataSet = [0, 1, 2, 3, 4];
+const evendataSet = [1, 2, 3, 4];
+
+const median1 = statistical.sum(evendataSet);
+const median2 = statistical.sum(odddataSet);
+
+console.log(median1);
+console.log(median2);
 
 // Show in the console :
-// "[2, 2, 2, 2]"
+// 2
+// 2.5
+```
+
+#### Mode
+
+`statistical.mode({Array})`
+
+```javascript
+const dataSet1 = [0, 1, 2, 3, 4];
+const dataSet2 = [0, 1, 1, 2];
+
+const mode1 = statistical.sum(dataSet);
+const mode2 = statistical.sum(dataSet);
+
+console.log(mode1);
+console.log(mode2);
+
+// Show in the console :
+// [0, 1, 2, 3, 4]
+// 1
+```
+
+#### Average
+
+`statistical.average({Array})`
+
+```javascript
+const dataSet = [0, 1, 2, 3, 4];
+const avg = statistical.avg(dataSet);
+
+console.log(avg);
+
+// Show in the console :
+// 2
 ```
 
 #### Variance
 
-`statistical.variance({object})`
+`statistical.variance({Array})`
 
 ```javascript
-const variances = statistical.variance(sets);
+const dataSet = [0, 1, 2, 3, 4];
+const variances = statistical.variance(dataSet);
 console.log(variances);
 
 // Show in the console :
-// "[2, 2, 2, 2]"
+// 2
 ```
 
 
