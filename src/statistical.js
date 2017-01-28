@@ -5,14 +5,34 @@ class Statistical {
     constructor() {}
 
     /**
+     * Return the execution time of the method asked by methodName with the param given
+     *
+     * @param {String} methodName
+     * @param {Array} param
+     * @returns {string}
+     */
+    performance(methodName, param) {
+        if (!methodName) throw new Error('Missing parameter methodName (performance).');
+        if (!this[methodName]) throw new Error(`Method ${methodName} doesn't exist in statistical (performance).`);
+
+        const t = () => new Date().getTime();
+
+        const begining = t();
+        this[methodName](param);
+        const end = t();
+
+        return (end - begining) + 'ms';
+    }
+
+    /**
      * Take array and return sum of each elements.
      *
-     * @param {Array} set
+     * @param dataSet
      * @returns {*}
      */
-    sum(set) {
-        return set.reduce((res, val) => {
-            if (Number.isNaN(val)) throw new Error('dataSet must contain only numbers');
+    sum(dataSet) {
+        return dataSet.reduce((res, val) => {
+            if (Number.isNaN(val)) throw new Error('dataSet must contain only numbers.');
             return res + val;
         }, 0);
     }
@@ -20,43 +40,43 @@ class Statistical {
     /**
      * Compute median for dataSet, the central value.
      *
-     * @param {Array} set
+     * @param {Array} dataSet
      * @returns {number}
      */
-    median(set) {
-        if (!set) throw new Error('Missing parameter set (median)');
-        if (!Array.isArray(set)) throw new Error('dataSet must be an array (median)');
+    median(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (median).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (median).');
 
-        const middle = Math.floor(set.length / 2);
-        const isEven = set.length % 2 === 0;
+        const middle = Math.floor(dataSet.length / 2);
+        const isEven = dataSet.length % 2 === 0;
 
-        set.sort((a, b) => a - b);
+        dataSet = dataSet.sort((a, b) => a - b);
 
-        return isEven ? (set[middle - 1] + set[middle]) / 2 : set[middle];
+        return isEven ? (dataSet[middle - 1] + dataSet[middle]) / 2 : dataSet[middle];
     }
 
     /**
      * Get the value wit the miximum occurence.
      *
-     * @param {Array} set
+     * @param {Array} dataSet
      * @returns {*}
      */
-    mode(set) {
+    mode(dataSet) {
         const counter = {};
         let mode = [];
         let max = 0;
 
-        for (const index in set) {
-            if (!(set[index] in counter)) counter[set[index]] = 0;
+        dataSet.map((value, index) => {
+            if (!(dataSet[index] in counter)) counter[dataSet[index]] = 0;
 
-            counter[set[index]]++;
+            counter[dataSet[index]]++;
 
-            if (counter[set[index]] === max) mode.push(set[index]);
-            if (counter[set[index]] > max) {
-                max = counter[set[index]];
-                mode = [set[index]];
+            if (counter[dataSet[index]] === max) mode.push(dataSet[index]);
+            if (counter[dataSet[index]] > max) {
+                max = counter[dataSet[index]];
+                mode = [dataSet[index]];
             }
-        }
+        });
 
         return mode;
     }
@@ -64,43 +84,75 @@ class Statistical {
     /**
      * Compute average for dataSet.
      *
-     * @param {Array} set
-     * @returns {*}
+     * @param {Array} dataSet
+     * @returns {Number}
      */
-    average(set) {
-        if (!set) throw new Error('Missing parameter set (average)');
-        if (!Array.isArray(set)) throw new Error('dataSet must be an array (average)');
+    average(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (average).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (average).');
 
-        return this.sum(set) / set.length;
+        return this.sum(dataSet) / dataSet.length;
     }
 
     /**
      * Compute variance for dataSet.
      *
-     * @param {Array} set
-     * @returns {*}
+     * @param {Array} dataSet
+     * @returns {Number}
      */
-    variance(set) {
-        if (!set) throw new Error('Missing parameter set (variance)');
-        if (!Array.isArray(set)) throw new Error('dataSet must be an array (variance)');
+    variance(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (variance).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (variance).');
 
-        const avg = this.average(set);
-        const n = set.length;
+        const avg = this.average(dataSet);
+        const n = dataSet.length;
 
-        return this.sum(set.map(value => Math.pow(value - avg, 2))) / n;
+        return this.sum(dataSet.map(value => Math.pow(value - avg, 2))) / n;
     }
 
     /**
      * Compute standard deviation for dataSet.
      *
-     * @param {Array} set
-     * @returns {*}
+     * @param {Array} dataSet
+     * @returns {Number}
      */
-    stdDeviation(set) {
-        if (!set) throw new Error('Missing parameter sets (stdDeviation)');
-        if (!Array.isArray(set)) throw new Error('dataSet must be an array (stdDeviation)');
+    stdDeviation(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (stdDeviation).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (stdDeviation).');
 
-        return Math.sqrt(this.variance(set));
+        return Math.sqrt(this.variance(dataSet));
+    }
+
+    /**
+     * Provided the quantile asked by the index given, if no index given, return all quantile of the dataSet.
+     *
+     * @param {Array} dataSet
+     * @param {Number} index
+     * @returns {Array}
+     */
+    quantile(dataSet, index = null) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (stdDeviation).');
+        if (index && (Number.isNaN(index) || index < 0 || index > 4)) throw new Error('index must be a number and between 1 - 4');
+
+        dataSet = dataSet.sort((a, b) => a - b);
+        return !index ?
+            [1, 2, 3, 4].map(i => dataSet[Math.ceil((dataSet.length * (i / 4))) - 1]) :
+            dataSet[Math.ceil((dataSet.length * (index / 4)) -1)];
+    }
+
+    /**
+     * Provided the percentile asked by the index given, if no index given, return all percentile of the dataSet.
+     *
+     * @param {Array} dataSet
+     * @param {Number} index
+     * @returns {Array}
+     */
+    percentile(dataSet, index = null) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (stdDeviation).');
+        if (index && (Number.isNaN(index) || index < 0 || index > 100)) throw new Error('index must be a number and between 1 - 100');
+
+        dataSet = dataSet.sort((a, b) => a - b);
+        return !index ? Array.from({length: 99}, (v, k) => k + 1).map(i => dataSet[i]) : dataSet[Math.ceil((index / 100) * dataSet.length)];
     }
 }
 
