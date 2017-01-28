@@ -40,12 +40,15 @@
         "url": "git+https://github.com/adrien2p/statistical.js.git"
     },
     "keywords": [
+        "statistical-js",
         "stats",
         "statistics",
         "stat",
         "test",
         "hypothesis",
-        "hypo"
+        "hypo",
+        "Math",
+        "Mathemtics"
     ],
     "author": "Adrien de Peretti",
     "license": "MIT",
