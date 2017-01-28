@@ -137,7 +137,7 @@ class Statistical {
         dataSet = dataSet.sort((a, b) => a - b);
         return !index ?
             [1, 2, 3, 4].map(i => dataSet[Math.ceil((dataSet.length * (i / 4))) - 1]) :
-            dataSet[Math.ceil((dataSet.length * (index / 4)) -1)];
+            dataSet[Math.ceil((dataSet.length * (index / 4)) - 1)];
     }
 
     /**
