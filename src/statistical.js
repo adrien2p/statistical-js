@@ -35,6 +35,9 @@ class Statistical {
      */
     set settings(options) {
         if (!options && !options.cache) throw new Error('Missing parameter options (Statistical:settings');
+        if (!Number.isNumber(options.cache.rootElementCount)) throw new Error('rootElementCount must be a number (Statistical:settings');
+        if (!Number.isNumber(options.cache.subElementCount)) throw new Error('subElementCount must be a number (Statistical:settings');
+
         this._settings = {
             cache: {
                 enabled: options.cache.enabled,
