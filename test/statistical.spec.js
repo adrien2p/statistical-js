@@ -4,13 +4,57 @@ const assert = require('chai').assert;
 const statistical = require('../src/statistical');
 
 describe('Statistical class', function () {
-    it('should return the time in ms to execute method', () => {
-        const dataSet = Array.from({length: 1000000}, (v, k) => Math.floor(Math.random() * 1000));
-        const res = statistical.performance('stdDeviation', dataSet);
+    afterEach(() => {
+        statistical.settings = {
+            cache: {
+                enabled: true,
+                rootElementCount: 10,
+                subElementCount: 30
+            }
+        };
+    });
 
-        assert.isString(res);
+    it('should return settings', () => {
+        assert.deepEqual(statistical.settings, {
+            cache: {
+                enabled: true,
+                rootElementCount: 10,
+                subElementCount: 30
+            }
+        });
+    });
 
-        console.log(`\nbelow (perf) ==> res : ${res} (${dataSet.length} elements)\n`);
+    it('should update settings', () => {
+        statistical.settings = {
+            cache: {
+                enabled: false,
+                rootElementCount: 100,
+                subElementCount: 300
+            }
+        };
+
+        assert.deepEqual(statistical.settings, {
+            cache: {
+                enabled: false,
+                rootElementCount: 100,
+                subElementCount: 300
+            }
+        });
+    });
+
+    it('should take less time with cache', () => {
+        this.timeout(3000);
+        const dataSet = Array.from({length: 1000000}, (v, k) => k);
+
+        const t1 = new Date().getTime();
+        const res = statistical.stdDeviation(dataSet);
+        const t2 = new Date().getTime();
+
+        const t3 = new Date().getTime();
+        const res2 = statistical.stdDeviation(dataSet);
+        const t4 = new Date().getTime();
+
+        assert.isBelow(t4 - t3, t2 - t1);
     });
 
     it('should compute sum of an array of numbers', () => {
@@ -46,9 +90,9 @@ describe('Statistical class', function () {
         assert.sameMembers(res, [1, 3]);
     });
 
-    it('should compute average of an array of numbers', () => {
+    it('should compute mean of an array of numbers', () => {
         const dataSet = [1, 2, 3];
-        const res = statistical.average(dataSet);
+        const res = statistical.mean(dataSet);
 
         assert.equal(res, 2);
     });

@@ -5,21 +5,24 @@
 
 To find the complete documentation, you can go to the [wiki !](https://github.com/adrien2p/statistical-js/wiki)
 
-## How to use
-
-statistical-js is really easy to use in many sense.
+### How to use
 
 ```javascript
 const statistical = require('statistical-js');
 ```
 
+### Performance
+
+To provide you the best performance, the library have a cache system to keep last result saved in case you execute the same caclulation later.
+
+> To have more information how configure settings to override default value, you can go to the [perfomance section !](https://github.com/adrien2p/statistical-js/wiki/Performance)
+
 #### Actualy support
-- Performance (specialy to return the execution time)
+
 - Sum
 - Median
 - Mode
-- Average
+- Mean
 - Variance
 - Quantile
 - Percentile
-

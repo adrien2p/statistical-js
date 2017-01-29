@@ -1,27 +1,48 @@
 'use strict';
 
+const interceptor = require('./utils/interceptor');
+const cacheManager = require('./utils/cacheManager');
+
 class Statistical {
 
-    constructor() {}
+    constructor() {
+        this._settings = {
+            cache: {
+                enabled: true,
+                rootElementCount: 10,
+                subElementCount: 30
+            }
+        };
+        return interceptor.cacheBefore(this, cacheManager, [
+            'settings',
+            'cacheSettings'
+        ]);
+    }
 
     /**
-     * Return the execution time of the method asked by methodName with the param given
+     * Return settings used in statistical class.
      *
-     * @param {String} methodName
-     * @param {Array} param
-     * @returns {string}
+     * @returns {*}
      */
-    performance(methodName, param) {
-        if (!methodName) throw new Error('Missing parameter methodName (performance).');
-        if (!this[methodName]) throw new Error(`Method ${methodName} doesn't exist in statistical (performance).`);
+    get settings() {
+        return this._settings;
+    }
 
-        const t = () => new Date().getTime();
-
-        const begining = t();
-        this[methodName](param);
-        const end = t();
-
-        return (end - begining) + 'ms';
+    /**
+     * Allow to updates statistical settings.
+     *
+     * @param {*|object} options
+     */
+    set settings(options) {
+        if (!options && !options.cache) throw new Error('Missing parameter options (Statistical:settings');
+        this._settings = {
+            cache: {
+                enabled: options.cache.enabled,
+                rootElementCount: options.cache.rootElementCount || 10,
+                subElementCount: options.cache.subElementCount || 30
+            }
+        };
+        cacheManager.settings = this._settings.cache;
     }
 
     /**
@@ -32,7 +53,7 @@ class Statistical {
      */
     sum(dataSet) {
         return dataSet.reduce((res, val) => {
-            if (Number.isNaN(val)) throw new Error('dataSet must contain only numbers.');
+            if (Number.isNaN(val)) throw new Error('dataSet must contain only numbers (Statistical:sum).');
             return res + val;
         }, 0);
     }
@@ -44,8 +65,8 @@ class Statistical {
      * @returns {number}
      */
     median(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (median).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (median).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:median).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:median).');
 
         const middle = Math.floor(dataSet.length / 2);
         const isEven = dataSet.length % 2 === 0;
@@ -62,6 +83,9 @@ class Statistical {
      * @returns {*}
      */
     mode(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:mode).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:mode).');
+
         const counter = {};
         let mode = [];
         let max = 0;
@@ -82,14 +106,14 @@ class Statistical {
     }
 
     /**
-     * Compute average for dataSet.
+     * Compute mean for dataSet.
      *
      * @param {Array} dataSet
      * @returns {Number}
      */
-    average(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (average).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (average).');
+    mean(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:mean).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:mean).');
 
         return this.sum(dataSet) / dataSet.length;
     }
@@ -101,10 +125,10 @@ class Statistical {
      * @returns {Number}
      */
     variance(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (variance).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (variance).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:variance).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:variance).');
 
-        const avg = this.average(dataSet);
+        const avg = this.mean(dataSet);
         const n = dataSet.length;
 
         return this.sum(dataSet.map(value => Math.pow(value - avg, 2))) / n;
@@ -117,8 +141,8 @@ class Statistical {
      * @returns {Number}
      */
     stdDeviation(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (stdDeviation).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (stdDeviation).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:stdDeviation).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:stdDeviation).');
 
         return Math.sqrt(this.variance(dataSet));
     }
@@ -131,8 +155,8 @@ class Statistical {
      * @returns {Array}
      */
     quantile(dataSet, index = null) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (stdDeviation).');
-        if (index && (Number.isNaN(index) || index < 0 || index > 4)) throw new Error('index must be a number and between 1 - 4');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:quantile).');
+        if (index && (Number.isNaN(index) || index < 0 || index > 4)) throw new Error('index must be a number and between 1 - 4 (Statistical:quantile).');
 
         dataSet = dataSet.sort((a, b) => a - b);
         return !index ?
@@ -148,12 +172,17 @@ class Statistical {
      * @returns {Array}
      */
     percentile(dataSet, index = null) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (stdDeviation).');
-        if (index && (Number.isNaN(index) || index < 0 || index > 100)) throw new Error('index must be a number and between 1 - 100');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:percentile).');
+        if (index && (Number.isNaN(index) || index < 0 || index > 100)) throw new Error('index must be a number and between 1 - 100 (Statistical:percentile)');
 
         dataSet = dataSet.sort((a, b) => a - b);
         return !index ? Array.from({length: 99}, (v, k) => k + 1).map(i => dataSet[i]) : dataSet[Math.ceil((index / 100) * dataSet.length)];
     }
 }
 
+/**
+ * Export throught a proxy to intercept method call and manage cache
+ *
+ * @type {Proxy}
+ */
 module.exports = new Statistical();
