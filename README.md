@@ -13,9 +13,8 @@ const statistical = require('statistical-js');
 
 ### Performance
 
-To provide you the best performance, the library have a cache system to keep last result saved in case you execute the same caclulation later.
-
-> To have more information how configure settings to override default value, you can go to the [perfomance section !](https://github.com/adrien2p/statistical-js/wiki/Performance)
+To provide you with the best performance when using statistical-js, this library has implemented a variable cache system to save the last calculations.
+you can go to [perfomance section !](https://github.com/adrien2p/statistical-js/wiki/Performance)
 
 #### Actualy support
 
