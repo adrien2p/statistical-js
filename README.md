@@ -23,5 +23,6 @@ you can go to [perfomance section !](https://github.com/adrien2p/statistical-js/
 - Mode
 - Mean
 - Variance
+- Standard deviation
 - Quantile
 - Percentile
