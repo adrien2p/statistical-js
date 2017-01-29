@@ -180,9 +180,5 @@ class Statistical {
     }
 }
 
-/**
- * Export throught a proxy to intercept method call and manage cache
- *
- * @type {Proxy}
- */
+
 module.exports = new Statistical();
