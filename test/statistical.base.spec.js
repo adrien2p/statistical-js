@@ -1,12 +1,10 @@
 'use strict';
 
 const assert = require('chai').assert;
-const StatisticalBase = require('../src/statistical.base');
+const statisticalBase = require('../src/statistical').base;
+const cacheManager = require('../src/utils/cacheManager');
 
 describe('StatisticalBase', () => {
-    let statisticalBase;
-    before(() => statisticalBase = new StatisticalBase());
-
     it('should take less time with cache', () => {
         const dataSet = Array.from({length: 1000000}, (v, k) => k);
 
@@ -96,6 +94,19 @@ describe('StatisticalBase', () => {
         const res = statisticalBase.percentile(dataSet, 30);
 
         assert.equal(res, 5);
+    });
+
+    it('should return a summary with all descriptive statistics above', () => {
+        const dataSet = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
+        const res = statisticalBase.summary(dataSet);
+
+        assert.equal(res.sum, 193);
+        assert.equal(res.median, 6);
+        assert.equal(res.mode, 6);
+        assert.equal(Math.trunc(res.mean * 100) / 100, 14.84);
+        assert.equal(Math.trunc(res.variance * 100) / 100, 238.28);
+        assert.equal(Math.trunc(res.stdDeviation * 100) / 100, 15.43);
+        assert.sameMembers(res.quantile,  [4, 6, 19, 50]);
     });
 
     it('should return the factorial of any number', () => {

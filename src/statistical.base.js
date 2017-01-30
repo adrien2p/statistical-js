@@ -73,7 +73,7 @@ class StatisticalBase {
             }
         });
 
-        return mode;
+        return mode.length > 1 ? mode : mode[0];
     }
 
     /**
@@ -151,17 +151,37 @@ class StatisticalBase {
     }
 
     /**
+     * Return the entire result of statistics above
+     *
+     * @param {Array} dataSet
+     * @returns {{sum: *, median: number, mode: *, mean: Number, variance: Number, stdDeviation: Number, quantile: Array}}
+     */
+    summary(dataSet) {
+        return {
+            sum: this.sum(dataSet),
+            median: this.median(dataSet),
+            mode: this.mode(dataSet),
+            mean: this.mean(dataSet),
+            variance: this.variance(dataSet),
+            stdDeviation: this.stdDeviation(dataSet),
+            quantile: this.quantile(dataSet)
+        };
+    }
+
+    /**
      * Return factorial of n (each number multiply the previous)
      *
      * @param {number} n
      * @returns {number}
      */
     factorial(n) {
-        if (!n) throw new Error('Missing parameter n (Statistical.base:factorial');
+        if (Number.isNaN(n)) throw new Error('Missing parameter n and must be a number (Statistical.base:factorial).');
         if (n < 0) throw new Error('n must be positive');
 
         let factorialResult = 1;
-        for (let i = 2; i <= n; i++) { factorialResult *= i; }
+        for (let i = 2; i <= n; i++) {
+            factorialResult *= i;
+        }
 
         return factorialResult;
     }

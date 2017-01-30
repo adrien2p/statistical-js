@@ -17,15 +17,21 @@ const statistical = require('statistical-js');
 ### Performance
 
 To provide you with the best performance when using statistical-js, this library has implemented a variable cache system to save the last calculations.
-you can go to [perfomance section !](https://github.com/adrien2p/statistical-js/wiki/Performance)
+To see how manage it if it necessary, you can go to [perfomance section !](https://github.com/adrien2p/statistical-js/wiki/Performance)
 
 #### Actualy support
 
-- Sum
-- Median
-- Mode
-- Mean
-- Variance
-- Standard deviation
-- Quantile
-- Percentile
+- Basics
+  - epsilon (const value 0.0001)
+  - Sum
+  - Median
+  - Mode
+  - Mean
+  - Variance
+  - Standard deviation
+  - Quantile
+  - Summary (regroup all descriptives statistics above)
+  - Percentile
+  - factorial
+- Distribution
+  - Binomial
