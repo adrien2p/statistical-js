@@ -14,6 +14,7 @@ describe('CacheManager class', function () {
 
     it('should return settings', () => {
        assert.deepEqual(cacheManager.settings, {
+           enabled: true,
            rootElementCount: 10,
            subElementCount: 30
        });
@@ -25,11 +26,13 @@ describe('CacheManager class', function () {
 
     it('should set settings', () => {
         cacheManager.settings = {
+            enabled: false,
             rootElementCount: 20,
             subElementCount: 60
         };
 
         assert.deepEqual(cacheManager.settings, {
+            enabled: false,
             rootElementCount: 20,
             subElementCount: 60
         });
@@ -37,7 +40,7 @@ describe('CacheManager class', function () {
 
     it('should update the cache', () => {
         const dataSet = [1, 2, 3];
-        const res = statistical.stdDeviation(dataSet);
+        const res = statistical.base.stdDeviation(dataSet);
         const cache = cacheManager.find('stdDeviation', dataSet);
 
         assert.equal(cache.dataSet, dataSet);

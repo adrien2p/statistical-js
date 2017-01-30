@@ -4,6 +4,7 @@ class CacheManager {
     constructor() {
         this._cache = {};
         this._settings = {
+            enabled: true,
             rootElementCount: 10,
             subElementCount: 30
         };
@@ -30,13 +31,14 @@ class CacheManager {
     /**
      * Update existing settings to manage cache
      *
-     * @param {*} settings
+     * @param {*} options
      */
-    set settings(settings) {
-        if (!settings) throw new Error('Missing parameter options (CacheManager:settings');
+    set settings(options) {
+        if (!options) throw new Error('Missing parameter options (CacheManager:settings');
         this._settings = {
-            rootElementCount: settings.rootElementCount || 10,
-            subElementCount: settings.subElementCount || 30
+            enabled: options.enabled,
+            rootElementCount: options.rootElementCount || 10,
+            subElementCount: options.subElementCount || 30
         };
     }
 

@@ -10,15 +10,13 @@ class Interceptor {
      * @param {object} cacheManager
      * @param {Array} propertyExcluded
      */
-    cacheBefore(object, cacheManager, propertyExcluded) {
+    cacheBefore(object, cacheManager) {
         return new Proxy(object, {
             get: (target, propKey) => {
-                const isExcluded = propertyExcluded.some(p => propKey.includes(p));
-
-                if (propKey in Object.getPrototypeOf(target) && !isExcluded) {
+                if (propKey in target) {
                     return (...args) => {
                         let res;
-                        if (!object._settings.enabled) {
+                        if (!cacheManager._settings.enabled) {
                             const cache = cacheManager.find(propKey, args[0]);
                             if (cache) return cache.result;
 
