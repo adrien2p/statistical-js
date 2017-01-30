@@ -1,7 +1,20 @@
 'use strict';
 
 class StatisticalBase {
-    constructor() {}
+    constructor() {
+        /**
+         * We use `ε`, epsilon, as a stopping criterion when we want to iterate
+         * until we're "close enough". Epsilon is a very small number: for
+         * simple statistics, that number is **0.0001**
+         *
+         * This is used in calculations like the binomialDistribution, in which
+         * the process of finding a value is [iterative](https://en.wikipedia.org/wiki/Iterative_method):
+         * it progresses until it is close enough.
+         *
+         * @type {number}
+         */
+        this._epsilon = 0.0001;
+    }
 
     /**
      * Take array and return sum of each elements.
@@ -11,7 +24,7 @@ class StatisticalBase {
      */
     sum(dataSet) {
         return dataSet.reduce((res, val) => {
-            if (Number.isNaN(val)) throw new Error('dataSet must contain only numbers (Statistical:sum).');
+            if (Number.isNaN(val)) throw new Error('dataSet must contain only numbers (Statistical.base:sum).');
             return res + val;
         }, 0);
     }
@@ -23,8 +36,8 @@ class StatisticalBase {
      * @returns {number}
      */
     median(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:median).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:median).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:median).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:median).');
 
         const middle = Math.floor(dataSet.length / 2);
         const isEven = dataSet.length % 2 === 0;
@@ -41,8 +54,8 @@ class StatisticalBase {
      * @returns {*}
      */
     mode(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:mode).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:mode).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:mode).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:mode).');
 
         const counter = {};
         let mode = [];
@@ -70,8 +83,8 @@ class StatisticalBase {
      * @returns {Number}
      */
     mean(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:mean).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:mean).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:mean).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:mean).');
 
         return this.sum(dataSet) / dataSet.length;
     }
@@ -83,8 +96,8 @@ class StatisticalBase {
      * @returns {Number}
      */
     variance(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:variance).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:variance).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:variance).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:variance).');
 
         const avg = this.mean(dataSet);
         const n = dataSet.length;
@@ -99,8 +112,8 @@ class StatisticalBase {
      * @returns {Number}
      */
     stdDeviation(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:stdDeviation).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical:stdDeviation).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:stdDeviation).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:stdDeviation).');
 
         return Math.sqrt(this.variance(dataSet));
     }
@@ -113,8 +126,8 @@ class StatisticalBase {
      * @returns {Array}
      */
     quantile(dataSet, index = null) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:quantile).');
-        if (index && (Number.isNaN(index) || index < 0 || index > 4)) throw new Error('index must be a number and between 1 - 4 (Statistical:quantile).');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:quantile).');
+        if (index && (Number.isNaN(index) || index < 0 || index > 4)) throw new Error('index must be a number and between 1 - 4 (Statistical.base:quantile).');
 
         dataSet = dataSet.sort((a, b) => a - b);
         return !index ?
@@ -130,11 +143,27 @@ class StatisticalBase {
      * @returns {Array}
      */
     percentile(dataSet, index = null) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical:percentile).');
-        if (index && (Number.isNaN(index) || index < 0 || index > 100)) throw new Error('index must be a number and between 1 - 100 (Statistical:percentile)');
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:percentile).');
+        if (index && (Number.isNaN(index) || index < 0 || index > 100)) throw new Error('index must be a number and between 1 - 100 (Statistical.base:percentile)');
 
         dataSet = dataSet.sort((a, b) => a - b);
         return !index ? Array.from({length: 99}, (v, k) => k + 1).map(i => dataSet[i]) : dataSet[Math.ceil((index / 100) * dataSet.length)];
+    }
+
+    /**
+     * Return factorial of n (each number multiply the previous)
+     *
+     * @param {number} n
+     * @returns {number}
+     */
+    factorial(n) {
+        if (!n) throw new Error('Missing parameter n (Statistical.base:factorial');
+        if (n < 0) throw new Error('n must be positive');
+
+        let factorialResult = 1;
+        for (let i = 2; i <= n; i++) { factorialResult *= i; }
+
+        return factorialResult;
     }
 }
 
