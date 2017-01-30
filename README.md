@@ -6,6 +6,7 @@
 To find the complete documentation, you can go to the [wiki !](https://github.com/adrien2p/statistical-js/wiki)
 
 ### How to use
+`npm install --save statistical-js`
 
 ```javascript
 const statistical = require('statistical-js');
