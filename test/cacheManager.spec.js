@@ -4,7 +4,7 @@ const assert = require('chai').assert;
 const cacheManager = require('../src/utils/cacheManager');
 const statistical = require('../src/statistical');
 
-describe('CacheManager class', function () {
+describe('CacheManager', () => {
     after(() => {
         cacheManager.settings = {
             rootElementCount: 10,
