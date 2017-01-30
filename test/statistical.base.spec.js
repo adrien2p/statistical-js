@@ -97,4 +97,10 @@ describe('StatisticalBase', () => {
 
         assert.equal(res, 5);
     });
+
+    it('should return the factorial of any number', () => {
+        const res = statisticalBase.factorial(5);
+
+        assert.equal(res, 120);
+    });
 });
