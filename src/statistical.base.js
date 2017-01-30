@@ -17,6 +17,33 @@ class StatisticalBase {
     }
 
     /**
+     * Return the smallest value of the dataSet.
+     *
+     * @param {Array} dataSet
+     * @returns {number}
+     */
+    min(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:min).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:min).');
+
+        return dataSet.sort((a, b) => a - b)[0];
+    }
+
+    /**
+     * Return the biggest value of the dataSet.
+     *
+     * @param {Array} dataSet
+     * @returns {number}
+     */
+    max(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:max).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:max).');
+
+        return dataSet.sort((a, b) => a + b)[0];
+    }
+
+
+    /**
      * Take array and return sum of each elements.
      *
      * @param dataSet
@@ -80,7 +107,7 @@ class StatisticalBase {
      * Compute mean for dataSet.
      *
      * @param {Array} dataSet
-     * @returns {Number}
+     * @returns {number}
      */
     mean(dataSet) {
         if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:mean).');
@@ -93,7 +120,7 @@ class StatisticalBase {
      * Compute variance for dataSet.
      *
      * @param {Array} dataSet
-     * @returns {Number}
+     * @returns {number}
      */
     variance(dataSet) {
         if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:variance).');
@@ -109,7 +136,7 @@ class StatisticalBase {
      * Compute standard deviation for dataSet.
      *
      * @param {Array} dataSet
-     * @returns {Number}
+     * @returns {number}
      */
     stdDeviation(dataSet) {
         if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:stdDeviation).');
@@ -122,7 +149,7 @@ class StatisticalBase {
      * Provided the quantile asked by the index given, if no index given, return all quantile of the dataSet.
      *
      * @param {Array} dataSet
-     * @param {Number} index
+     * @param {number} index
      * @returns {Array}
      */
     quantile(dataSet, index = null) {
@@ -139,7 +166,7 @@ class StatisticalBase {
      * Provided the percentile asked by the index given, if no index given, return all percentile of the dataSet.
      *
      * @param {Array} dataSet
-     * @param {Number} index
+     * @param {number} index
      * @returns {Array}
      */
     percentile(dataSet, index = null) {
@@ -151,13 +178,18 @@ class StatisticalBase {
     }
 
     /**
-     * Return the entire result of statistics above
+     * Return the entire result of descriptives statistics above
      *
      * @param {Array} dataSet
-     * @returns {{sum: *, median: number, mode: *, mean: Number, variance: Number, stdDeviation: Number, quantile: Array}}
+     * @returns {{min: number, max: number, sum: *, median: number, mode: *, mean: number, variance: number, stdDeviation: number, quantile: Array}}
      */
     summary(dataSet) {
+        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:summary).');
+        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:summary).');
+
         return {
+            min: this.min(dataSet),
+            max: this.max(dataSet),
             sum: this.sum(dataSet),
             median: this.median(dataSet),
             mode: this.mode(dataSet),

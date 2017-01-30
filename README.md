@@ -23,6 +23,8 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
 
 - Basics
   - epsilon (const value 0.0001)
+  - min
+  - max
   - Sum
   - Median
   - Mode
