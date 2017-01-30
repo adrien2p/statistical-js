@@ -8,7 +8,6 @@ class Interceptor {
      *
      * @param {object} object
      * @param {object} cacheManager
-     * @param {Array} propertyExcluded
      */
     cacheBefore(object, cacheManager) {
         return new Proxy(object, {

@@ -66,7 +66,6 @@ class CacheManager {
      * @param {String} method
      * @param {Array} dataSet
      * @returns {Object}
-     * @private
      */
     find(method, dataSet) {
         const cache = this._cache[method] || [];
