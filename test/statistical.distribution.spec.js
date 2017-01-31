@@ -1,12 +1,9 @@
 'use strict';
 
 const assert = require('chai').assert;
-const StatisticalDistribution = require('../src/statistical').distribution;
+const statisticalDistribution = require('../src/statistical').distribution;
 
 describe('StatisticalDistribution', () => {
-    let statisticalDistribution;
-    before(() => statisticalDistribution = new StatisticalDistribution());
-
     it('should return binomial probability result for each value', () => {
         const res = statisticalDistribution.binomial(10, 0.5);
 
