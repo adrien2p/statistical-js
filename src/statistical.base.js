@@ -1,7 +1,10 @@
 'use strict';
 
+const validator = require('./utils/validator');
+
 class StatisticalBase {
     constructor() {
+        this._validator = validator;
         /**
          * We use `ε`, epsilon, as a stopping criterion when we want to iterate
          * until we're "close enough". Epsilon is a very small number: for
@@ -23,9 +26,7 @@ class StatisticalBase {
      * @returns {number}
      */
     min(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:min).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:min).');
-
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
         return dataSet.sort((a, b) => a - b)[0];
     }
 
@@ -36,9 +37,7 @@ class StatisticalBase {
      * @returns {number}
      */
     max(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:max).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:max).');
-
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
         return dataSet.sort((a, b) => a + b)[0];
     }
 
@@ -50,10 +49,8 @@ class StatisticalBase {
      * @returns {*}
      */
     sum(dataSet) {
-        return dataSet.reduce((res, val) => {
-            if (Number.isNaN(val)) throw new Error('dataSet must contain only numbers (Statistical.base:sum).');
-            return res + val;
-        }, 0);
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+        return dataSet.reduce((accumulator, current) => accumulator + current, 0);
     }
 
     /**
@@ -63,8 +60,7 @@ class StatisticalBase {
      * @returns {number}
      */
     median(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:median).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:median).');
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
 
         const middle = Math.floor(dataSet.length / 2);
         const isEven = dataSet.length % 2 === 0;
@@ -81,8 +77,7 @@ class StatisticalBase {
      * @returns {*}
      */
     mode(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:mode).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:mode).');
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
 
         const counter = {};
         let mode = [];
@@ -110,8 +105,7 @@ class StatisticalBase {
      * @returns {number}
      */
     mean(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:mean).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:mean).');
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
 
         return this.sum(dataSet) / dataSet.length;
     }
@@ -123,8 +117,7 @@ class StatisticalBase {
      * @returns {number}
      */
     variance(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:variance).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:variance).');
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
 
         const avg = this.mean(dataSet);
         const n = dataSet.length;
@@ -139,9 +132,7 @@ class StatisticalBase {
      * @returns {number}
      */
     stdDeviation(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:stdDeviation).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:stdDeviation).');
-
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
         return Math.sqrt(this.variance(dataSet));
     }
 
@@ -153,8 +144,7 @@ class StatisticalBase {
      * @returns {Array}
      */
     quantile(dataSet, index = null) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:quantile).');
-        if (index && (Number.isNaN(index) || index < 0 || index > 4)) throw new Error('index must be a number and between 1 - 4 (Statistical.base:quantile).');
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
 
         dataSet = dataSet.sort((a, b) => a - b);
         return !index ?
@@ -170,8 +160,7 @@ class StatisticalBase {
      * @returns {Array}
      */
     percentile(dataSet, index = null) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:percentile).');
-        if (index && (Number.isNaN(index) || index < 0 || index > 100)) throw new Error('index must be a number and between 1 - 100 (Statistical.base:percentile)');
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
 
         dataSet = dataSet.sort((a, b) => a - b);
         return !index ? Array.from({length: 99}, (v, k) => k + 1).map(i => dataSet[i]) : dataSet[Math.ceil((index / 100) * dataSet.length)];
@@ -184,8 +173,7 @@ class StatisticalBase {
      * @returns {{min: number, max: number, sum: *, median: number, mode: *, mean: number, variance: number, stdDeviation: number, quantile: Array}}
      */
     summary(dataSet) {
-        if (!dataSet) throw new Error('Missing parameter dataSet (Statistical.base:summary).');
-        if (!Array.isArray(dataSet)) throw new Error('dataSet must be an array (Statistical.base:summary).');
+        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
 
         return {
             min: this.min(dataSet),
@@ -207,8 +195,7 @@ class StatisticalBase {
      * @returns {number}
      */
     factorial(n) {
-        if (Number.isNaN(n)) throw new Error('Missing parameter n and must be a number (Statistical.base:factorial).');
-        if (n < 0) throw new Error('n must be positive');
+        this._validator.validate('n', n, ['isNumber', 'positive']);
 
         let factorialResult = 1;
         for (let i = 2; i <= n; i++) {
@@ -218,6 +205,5 @@ class StatisticalBase {
         return factorialResult;
     }
 }
-
 
 module.exports = StatisticalBase;

@@ -37,3 +37,4 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
   - factorial
 - Distribution
   - Binomial
+  - Bernoulli
