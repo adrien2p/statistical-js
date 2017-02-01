@@ -38,3 +38,5 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
 - Distribution
   - Binomial
   - Bernoulli
+  - Poisson
+  - Chi Squared Goodness Of Fit
