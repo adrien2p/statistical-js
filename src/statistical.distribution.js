@@ -100,7 +100,7 @@ class StatisticalDistribution {
         let observedFrequencies = [];
         observedFrequencies = dataSet.reduce((accumulator, val) => {
             if (accumulator[val] === undefined) accumulator[val] = 0;
-            accumulator[val] +=1 ;
+            accumulator[val] += 1;
             return accumulator;
         }, []).filter(v => v !== undefined);
 

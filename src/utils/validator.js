@@ -45,7 +45,7 @@ class Validator {
                     } else {
                         throw new Error('Method not implemented : ' + r);
                     }
-            };
+            }
         });
     }
 }
