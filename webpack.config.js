@@ -15,7 +15,10 @@ if (env === 'build') {
 }
 
 var config = {
-    entry: __dirname + '/src/statistical.js',
+    entry: [
+        'babel-polyfill',
+        './src/statistical.js'
+    ],
     devtool: 'source-map',
     output: {
         path: __dirname + '/lib',
