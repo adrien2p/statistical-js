@@ -16,7 +16,6 @@ if (env === 'build') {
 
 var config = {
     entry: [
-        'babel-polyfill',
         './src/statistical.js'
     ],
     devtool: 'source-map',
