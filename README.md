@@ -10,7 +10,7 @@ Library that provide you some statistics which are useful and with the best perf
 ## Getting Started
 
 `npm install --save statistcal-js`
-```javascrip
+```javascript
 /* how to import and use it */
 const statistical = require('statistical-js');
 const res = statistical.base.sum([1, 2, 3]);
