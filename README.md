@@ -3,23 +3,32 @@
 
 [![NPM](https://nodei.co/npm/statistical-js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/statistical-js/)
 
-# statistical-js
+# Statistical-JS
 
-To find the complete documentation, you can go to the [wiki !](https://github.com/adrien2p/statistical-js/wiki)
+Library that provide you some statistics which are useful and with the best performance execution.
 
-### How to use
-`npm install --save statistical-js`
+## Getting Started
 
-```javascript
+`npm install --save statistcal-js`
+```javascrip
+/* how to import and use it */
 const statistical = require('statistical-js');
+const res = statistical.base.sum([1, 2, 3]);
 ```
+
+To see what you can do with `statistical-js` you can go [there !](https://github.com/adrien2p/statistical-js/wiki).
+
+### Prerequisites
+
+They are no dependencies, so you can use it just like that and ES6.
+
 
 ### Performance
 
 To provide you with the best performance when using statistical-js, this library has implemented a variable cache system to save the last calculations.
 To see how manage it if it necessary, you can go to [perfomance section !](https://github.com/adrien2p/statistical-js/wiki/Performance)
 
-#### Actualy support
+### Actually provided
 
 - Basics
   - epsilon (const value 0.0001)
@@ -40,3 +49,7 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
   - Bernoulli
   - Poisson
   - Chi Squared Goodness Of Fit
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
