@@ -12,8 +12,8 @@
   "scripts": {
     "build": "webpack --mode=build",
     "dev": "webpack --progress --colors --watch --mode=dev",
-    "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
-    "test:watch": "mocha --timeout 3000 --compilers js:babel-core/register --colors -w ./test/*.spec.js",
+    "test": "mocha --compilers js:babel-core/register --colors ./test/**/*.spec.js",
+    "test:watch": "mocha --timeout 3000 --compilers js:babel-core/register --colors -w ./test/**/*.spec.js",
     "test:coverage": "./node_modules/.bin/istanbul cover _mocha --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint src/** --fix"
   },

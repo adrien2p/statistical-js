@@ -1,13 +1,16 @@
 'use strict';
-
+const validator = require('./utils/validator');
+const epsilon = require('./probability/epsilon');
 const chiSquaredTable = require('./probability/chiSquaredTable');
 const StatisticalBase = require('./statistical.base');
 
 
-class StatisticalDistribution extends StatisticalBase {
+class StatisticalDistribution {
     constructor() {
-        super();
+        this._validator = validator;
+        this._epsilon = epsilon;
         this._chiSquaredProbTable = chiSquaredTable;
+        this._base = new StatisticalBase();
     }
 
     /**
@@ -35,7 +38,7 @@ class StatisticalDistribution extends StatisticalBase {
         const cells = {};
 
         do {
-            cells[x] = this.factorial(trials) / (this.factorial(x) * this.factorial(trials - x)) * (Math.pow(probability, x) * Math.pow(1 - probability, trials - x));
+            cells[x] = this._base.factorial(trials) / (this._base.factorial(x) * this._base.factorial(trials - x)) * (Math.pow(probability, x) * Math.pow(1 - probability, trials - x));
             cumulativeProbability += cells[x];
             x++;
         } while (cumulativeProbability < 1 - this._epsilon);
@@ -68,7 +71,7 @@ class StatisticalDistribution extends StatisticalBase {
         let cells = {};
 
         do {
-            cells[x] = (Math.pow(Math.E, -lambda) * Math.pow(lambda, x)) / this.factorial(x);
+            cells[x] = (Math.pow(Math.E, -lambda) * Math.pow(lambda, x)) / this._base.factorial(x);
             cumulativeProbability += cells[x];
             x++;
         } while (cumulativeProbability < 1 - this._epsilon);
@@ -93,43 +96,44 @@ class StatisticalDistribution extends StatisticalBase {
         this._validator.validate('distributionType', distributionType, ['isFunction']);
         this._validator.validate('significance', significance, ['isNumber', 'positive']);
 
-        const dataSetMean = this.mean(dataSet);
+        /* Generate an array with number of ocurences for each data in dataSet. */
+        let observedFrequencies = [];
+        observedFrequencies = dataSet.reduce((accumulator, val) => {
+            if (accumulator[val] === undefined) accumulator[val] = 0;
+            accumulator[val] +=1 ;
+            return accumulator;
+        }, []).filter(v => v !== undefined);
 
         /* Number of hypothesized distribution parameters estimated, expected to be supplied in the distribution test. */
         /* Lose one degree of freedom for estimating `lambda` from the sample data. */
-        const c = 1;
+        const dataSetMean = this._base.mean(dataSet);
 
         /* The hypothesized distribution. Generate the hypothesized distribution. */
         const hypothesizedDistribution = distributionType(dataSetMean);
 
-        let chiSquared = 0;
-        let degreesOfFreedom;
-
-        /* Generate an array with number of ocurences for each data in dataSet. */
-        const observedFrequencies = dataSet.reduce((res, val) => {
-            if (!res[val]) res[val] = 0;
-            return res[val]++;
-        }, {});
-
         /* Create an array holding a histogram of expected data given the */
         /* sample size and hypothesized distribution. */
-        let expectedFrequencies = hypothesizedDistribution.reduce((res, val) => {
-            if (observedFrequencies[val]) expectedFrequencies[+val] = val * dataSet.length;
-        }, {});
+        let expectedFrequencies = [];
+        expectedFrequencies = Object.entries(hypothesizedDistribution).reduce((accumulator, current, i) => {
+            if (observedFrequencies[i]) accumulator[i] = current[1] * dataSet.length;
+            return accumulator;
+        }, []);
 
         /* Concat frequencies < 3 with the previous one */
-        expectedFrequencies = expectedFrequencies.reduceRight((previous, current, i) => {
-            if (previous < 3) current += previous;
+        expectedFrequencies = Object.entries(expectedFrequencies).reduceRight((previous, current) => {
+            if (previous[1] < 3) current[1] += previous[1];
             return current;
         });
 
         /* Compute chiSquared value */
-        observedFrequencies.reduce((accumulator, current, i) => {
-            accumulator += Math.pow((current - expectedFrequencies[i]), 2) / expectedFrequencies[i];
+        let chiSquared = 0;
+        chiSquared = Object.entries(observedFrequencies).reduce((accumulator, current, i) => {
+            accumulator += Math.pow((current[1] - expectedFrequencies[i]), 2) / expectedFrequencies[i];
             return accumulator;
         }, chiSquared);
 
-        degreesOfFreedom = observedFrequencies.length - c - 1;
+        const c = 1;
+        const degreesOfFreedom = Object.keys(observedFrequencies).length - c - 1;
 
         return this._chiSquaredProbTable[degreesOfFreedom][significance] < chiSquared;
     }

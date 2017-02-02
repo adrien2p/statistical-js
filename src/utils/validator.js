@@ -17,7 +17,7 @@ class Validator {
                     if (!Array.isArray(value)) throw new Error(`Parameter ${parameterName} must be an array`);
                     break;
                 case 'isNumber':
-                    if (isNaN(value)) throw new Error(`Parameter ${parameterName} must be a number`);
+                    if (typeof value !== 'number') throw new Error(`Parameter ${parameterName} must be a number`);
                     break;
                 case 'isString':
                     if (typeof value !== 'string') throw new Error(`Parameter ${parameterName} must be a string`);
@@ -32,7 +32,7 @@ class Validator {
                     if (value < 0) throw new Error(`Parameter ${parameterName} must be positive`);
                     break;
                 case 'strictlyPositive':
-                    if (value <= 0) throw new Error(`Parameter ${parameterName} must be positive`);
+                    if (value <= 0) throw new Error(`Parameter ${parameterName} must be strictly positive`);
                     break;
                 default:
                     if (Array.isArray(r)) {

@@ -1,22 +1,12 @@
 'use strict';
 
 const validator = require('./utils/validator');
+const epsilon = require('./probability/epsilon');
 
 class StatisticalBase {
     constructor() {
         this._validator = validator;
-        /**
-         * We use `ε`, epsilon, as a stopping criterion when we want to iterate
-         * until we're "close enough". Epsilon is a very small number: for
-         * simple statistics, that number is **0.0001**
-         *
-         * This is used in calculations like the binomialDistribution, in which
-         * the process of finding a value is [iterative](https://en.wikipedia.org/wiki/Iterative_method):
-         * it progresses until it is close enough.
-         *
-         * @type {number}
-         */
-        this._epsilon = 0.0001;
+        this._epsilon = epsilon;
     }
 
     /**
