@@ -53,17 +53,17 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
 
 ### Test
 
-without coverage `npm run test`
-with coverage `npm run test:coverage`
+- without coverage `npm run test`
+- with coverage `npm run test:coverage`
 
 ### Lint
 
-To run lint and fix `npm run lint`
+- To run lint and fix `npm run lint`
 
 ### build
 
-build dev version `npm run dev`
-build prod version `npm run build`
+- build dev version `npm run dev`
+- build prod version `npm run build`
 
 ## License
 
