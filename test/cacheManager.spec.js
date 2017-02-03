@@ -5,8 +5,9 @@ const cacheManager = require('../src/utils/cacheManager');
 const statistical = require('../src/statistical');
 
 describe('CacheManager', () => {
-    after(() => {
+    afterEach(() => {
         cacheManager.settings = {
+            enabled: true,
             rootElementCount: 10,
             subElementCount: 30
         }

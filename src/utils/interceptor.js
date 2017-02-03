@@ -15,7 +15,7 @@ class Interceptor {
                 if (propKey in target) {
                     return (...args) => {
                         let res;
-                        if (!cacheManager.settings.enabled) {
+                        if (cacheManager.settings.enabled) {
                             const cache = cacheManager.find(propKey, args[0]);
                             if (cache) return cache.result;
 
