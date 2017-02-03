@@ -43,8 +43,8 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
   - Quantile
   - Summary (regroup all descriptives statistics above)
   - Percentile
+  - Factorial
 - Distribution
-  - factorial
   - Binomial
   - Bernoulli
   - Poisson

@@ -1,37 +1,13 @@
 'use strict';
 const validator = require('./utils/validator');
 const epsilon = require('./probability/epsilon');
+const StatisticalBase = require('./statistical.base');
 
 class StatisticalDistribution {
     constructor() {
         this._validator = validator;
         this._epsilon = epsilon;
-    }
-
-    /**
-     * Return table of chi squared prob.
-     *
-     * @returns {*}
-     */
-    get chiSquaredProbTable() {
-        return this._chiSquaredProbTable;
-    }
-
-    /**
-     * Return factorial of n (each number multiply the previous)
-     *
-     * @param {number} n
-     * @returns {number}
-     */
-    factorial(n) {
-        this._validator.validate('n', n, ['isNumber', 'positive']);
-
-        let factorialResult = 1;
-        for (let i = 2; i <= n; i++) {
-            factorialResult *= i;
-        }
-
-        return factorialResult;
+        this._base = new StatisticalBase();
     }
 
     /**
@@ -50,7 +26,7 @@ class StatisticalDistribution {
         const cells = {};
 
         do {
-            cells[x] = this.factorial(trials) / (this.factorial(x) * this.factorial(trials - x)) * (Math.pow(probability, x) * Math.pow(1 - probability, trials - x));
+            cells[x] = this._base.factorial(trials) / (this._base.factorial(x) * this._base.factorial(trials - x)) * (Math.pow(probability, x) * Math.pow(1 - probability, trials - x));
             cumulativeProbability += cells[x];
             x++;
         } while (cumulativeProbability < 1 - this._epsilon);
@@ -83,7 +59,7 @@ class StatisticalDistribution {
         let cells = {};
 
         do {
-            cells[x] = (Math.pow(Math.E, -lambda) * Math.pow(lambda, x)) / this.factorial(x);
+            cells[x] = (Math.pow(Math.E, -lambda) * Math.pow(lambda, x)) / this._base.factorial(x);
             cumulativeProbability += cells[x];
             x++;
         } while (cumulativeProbability < 1 - this._epsilon);

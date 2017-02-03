@@ -4,12 +4,6 @@ const assert = require('chai').assert;
 const statistical = require('../src/statistical');
 
 describe('StatisticalDistribution', () => {
-    it('should compute the factorial of any number', () => {
-        const res = statistical.distribution.factorial(5);
-
-        assert.equal(res, 120);
-    });
-
     it('should compute binomial probability distribution', () => {
         const res = statistical.distribution.binomial(10, 0.5);
 

@@ -12,6 +12,15 @@ class StatisticalTest {
     }
 
     /**
+     * Return table of chi squared prob.
+     *
+     * @returns {*}
+     */
+    get chiSquaredProbTable() {
+        return this._chiSquaredProbTable;
+    }
+
+    /**
      * The [χ2 (Chi-Squared) Goodness-of-Fit Test](http://en.wikipedia.org/wiki/Goodness_of_fit#Pearson.27s_chi-squared_test)
      * return if data follow a specified distribution
      *

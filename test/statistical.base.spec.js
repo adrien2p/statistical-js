@@ -120,4 +120,10 @@ describe('statistical.base', () => {
         assert.equal(Math.trunc(res.stdDeviation * 100) / 100, 15.43);
         assert.sameMembers(res.quantile,  [4, 6, 19, 50]);
     });
+
+    it('should compute the factorial of any number', () => {
+        const res = statistical.base.factorial(5);
+
+        assert.equal(res, 120);
+    });
 });
