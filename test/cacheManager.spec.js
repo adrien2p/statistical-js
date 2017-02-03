@@ -7,6 +7,7 @@ const statistical = require('../src/statistical');
 describe('CacheManager', () => {
     after(() => {
         cacheManager.settings = {
+            enabled: true,
             rootElementCount: 10,
             subElementCount: 30
         }
