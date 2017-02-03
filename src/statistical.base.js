@@ -177,23 +177,6 @@ class StatisticalBase {
             quantile: this.quantile(dataSet)
         };
     }
-
-    /**
-     * Return factorial of n (each number multiply the previous)
-     *
-     * @param {number} n
-     * @returns {number}
-     */
-    factorial(n) {
-        this._validator.validate('n', n, ['isNumber', 'positive']);
-
-        let factorialResult = 1;
-        for (let i = 2; i <= n; i++) {
-            factorialResult *= i;
-        }
-
-        return factorialResult;
-    }
 }
 
 module.exports = StatisticalBase;

@@ -4,6 +4,12 @@ const assert = require('chai').assert;
 const statistical = require('../src/statistical');
 
 describe('StatisticalDistribution', () => {
+    it('should compute the factorial of any number', () => {
+        const res = statistical.distribution.factorial(5);
+
+        assert.equal(res, 120);
+    });
+
     it('should compute binomial probability distribution', () => {
         const res = statistical.distribution.binomial(10, 0.5);
 
@@ -34,13 +40,5 @@ describe('StatisticalDistribution', () => {
             '5': 0.001580385632895633,
             '6': 0.00022388796466021467
         });
-    });
-
-    it('should return boolean for chiSquaredGoodnessOfFit to valid a hypothesis distribution', () => {
-        const dataSet = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
-        const distributionType = statistical.distribution.poisson;
-        const res = statistical.distribution.chiSquaredGoodnessOfFit(dataSet, distributionType, 0.005);
-
-        assert.deepEqual(res, false);
     });
 });

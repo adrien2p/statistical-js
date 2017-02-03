@@ -43,11 +43,12 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
   - Quantile
   - Summary (regroup all descriptives statistics above)
   - Percentile
-  - factorial
 - Distribution
+  - factorial
   - Binomial
   - Bernoulli
   - Poisson
+- Test
   - Chi Squared Goodness Of Fit
 
 
