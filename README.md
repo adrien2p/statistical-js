@@ -50,6 +50,21 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
   - Poisson
   - Chi Squared Goodness Of Fit
 
+
+### Test
+
+without coverage `npm run test`
+with coverage `npm run test:coverage`
+
+### Lint
+
+To run lint and fix `npm run lint`
+
+### build
+
+build dev version `npm run dev`
+build prod version `npm run build`
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
