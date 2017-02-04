@@ -2,12 +2,11 @@
 
 const interceptor = require('./utils/interceptor');
 const cacheManager = require('./utils/cacheManager');
-const StatisticalBase = require('./statistical.base');
-const StatisticalTest = require('./statistical.test');
-const StatisticalDistribution = require('./statistical.distribution');
+const StatisticalMethod = require('./statistical.method');
 
-class Statistical {
+class Statistical extends StatisticalMethod {
     constructor() {
+        super();
         this._settings = {
             cache: {
                 enabled: true,
@@ -15,36 +14,12 @@ class Statistical {
                 subElementCount: 30
             }
         };
-        this._base = interceptor.cacheBefore(new StatisticalBase(), cacheManager);
-        this._test = interceptor.cacheBefore(new StatisticalTest(), cacheManager);
-        this._distribution = interceptor.cacheBefore(new StatisticalDistribution(), cacheManager);
-    }
-
-    /**
-     * Return _base object to provide basic statistics methods
-     *
-     * @returns {*}
-     */
-    get base() {
-        return this._base;
-    }
-
-    /**
-     * Return _distribution object to provide distribution statistics methods
-     *
-     * @returns {*}
-     */
-    get distribution() {
-        return this._distribution;
-    }
-
-    /**
-     * Return _test object to provide test statistics methods
-     *
-     * @returns {*}
-     */
-    get test() {
-        return this._test;
+        return interceptor.cacheBefore(this, cacheManager, [
+            /* Excluded from the proxy */
+            '_settings',
+            'settings',
+            'chiSquaredProbTable'
+        ]);
     }
 
     /**

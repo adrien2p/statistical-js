@@ -13,7 +13,7 @@ Library that provide you some statistics which are useful and with the best perf
 ```javascript
 /* how to import and use it */
 const statistical = require('statistical-js');
-const res = statistical.base.sum([1, 2, 3]);
+const res = statistical.sum([1, 2, 3]);
 ```
 
 To see what you can do with `statistical-js` you can go [there !](https://github.com/adrien2p/statistical-js/wiki).
@@ -30,26 +30,27 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
 
 ### Actually provided
 
-- Basics
-  - epsilon (const value 0.0001)
-  - min
-  - max
-  - Sum
-  - Median
-  - Mode
-  - Mean
-  - Variance
-  - Standard deviation
-  - Quantile
-  - Summary (regroup all descriptives statistics above)
-  - Percentile
-  - Factorial
-- Distribution
-  - Binomial
-  - Bernoulli
-  - Poisson
-- Test
-  - Chi Squared Goodness Of Fit
+    - epsilon (const value 0.0001)
+    - min
+    - max
+    - Sum
+    - Median
+    - Mode
+    - Mean
+    - Variance
+    - Standard deviation
+    - Quantile
+    - Summary (regroup all descriptives statistics above)
+    - Percentile
+    - Factorial
+    - Geometric mean
+    - Harmonic mean
+    - Binomial
+    - Bernoulli
+    - Poisson
+    - Chi Squared Goodness Of Fit
+    - T-test - one sample (t-value)
+    - T-test - two sample (t-value)
 
 
 ### Test

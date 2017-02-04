@@ -9,10 +9,10 @@ class Interceptor {
      * @param {object} object
      * @param {object} cacheManager
      */
-    cacheBefore(object, cacheManager) {
+    cacheBefore(object, cacheManager, exclude) {
         return new Proxy(object, {
             get: (target, propKey) => {
-                if (propKey in target) {
+                if (propKey in target && !exclude.includes(propKey)) {
                     return (...args) => {
                         let res;
                         if (cacheManager.settings.enabled) {

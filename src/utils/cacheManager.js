@@ -11,7 +11,7 @@ class CacheManager {
     }
 
     /**
-     * Return CacheManager settings
+     * Return CacheManager settings.
      *
      * @returns {{maxLength: number}|*}
      */
@@ -29,12 +29,12 @@ class CacheManager {
     }
 
     /**
-     * Update existing settings to manage cache
+     * Update existing settings to manage cache.
      *
      * @param {*} options
      */
     set settings(options) {
-        if (!options) throw new Error('Missing parameter options (CacheManager:settings');
+        if (!options) throw new Error('Missing parameter options (CacheManager:settings)');
         this._settings = {
             enabled: options.enabled,
             rootElementCount: options.rootElementCount || 10,
@@ -43,9 +43,9 @@ class CacheManager {
     }
 
     /**
-     * Update the cache saved with new results
+     * Update the cache saved with new results.
      *
-     * @param method
+     * @param {string} method
      * @param {Object} options
      */
     update(method, options) {
@@ -61,7 +61,7 @@ class CacheManager {
     }
 
     /**
-     * Find an existing dataSet in the cache and return it
+     * Find an existing dataSet in the cache and return it.
      *
      * @param {String} method
      * @param {Array} dataSet
@@ -81,6 +81,13 @@ class CacheManager {
         });
 
         return res;
+    }
+
+    /**
+     * Reset the cache to be empty.
+     */
+    reset() {
+        this._cache = {};
     }
 }
 
