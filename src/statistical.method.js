@@ -375,7 +375,7 @@ class StatisticalMethod {
 
         const mean = this.mean(dataSet);
         const sd = this.stdDeviation(dataSet);
-        const sqrtSampleSize = Math.sqrt(dataSet.length)
+        const sqrtSampleSize = Math.sqrt(dataSet.length);
 
         /* t-value */
         return (mean - mu) / (sd / sqrtSampleSize);
