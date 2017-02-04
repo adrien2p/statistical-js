@@ -45,6 +45,7 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
     - Factorial
     - Geometric mean
     - Harmonic mean
+    - Sample variance (Non biased variance)
     - Binomial
     - Bernoulli
     - Poisson
