@@ -10,112 +10,105 @@ describe('statistical', () => {
     });
 
     it('should take less time with cache', () => {
-        const dataSet = Array.from({length: 1000000}, (v, k) => k);
+        const sample = Array.from({length: 1000000}, (v, k) => k);
 
         const t1 = new Date().getTime();
-        const res = statistical.stdDeviation(dataSet);
+        const res = statistical.stdDeviation(sample);
         const t2 = new Date().getTime();
 
         const t3 = new Date().getTime();
-        const res2 = statistical.stdDeviation(dataSet);
+        const res2 = statistical.stdDeviation(sample);
         const t4 = new Date().getTime();
 
         assert.isBelow(t4 - t3, t2 - t1);
     });
 
-    it('should return the smallest value of a dataSet', () => {
+    it('should return the smallest value of a sample', () => {
         const res = statistical.min([1, 2, 3]);
 
         assert.equal(res, 1);
     });
 
-    it('should return the biggest value of a dataSet', () => {
+    it('should return the biggest value of a sample', () => {
         const res = statistical.max([1, 2, 3]);
 
         assert.equal(res, 3);
     });
 
-    it('should compute sum of a dataSet', () => {
+    it('should compute sum of a sample', () => {
         const res = statistical.sum([1, 2, 3]);
         
         assert.equal(res, 6);
     });
 
-    it('should return the median of a dataSet (even)', () => {
-        const dataSet = [1, 2, 3, 4];
-        const res = statistical.median(dataSet);
+    it('should return the median of a sample (even)', () => {
+        const sample = [1, 2, 3, 4];
+        const res = statistical.median(sample);
 
         assert.equal(res, 2.5);
     });
 
-    it('should compute the median of a dataSet (odd)', () => {
-        const dataSet = [1, 2, 3];
-        const res = statistical.median(dataSet);
+    it('should compute the median of a sample (odd)', () => {
+        const sample = [1, 2, 3];
+        const res = statistical.median(sample);
 
         assert.equal(res, 2);
     });
 
-    it('should compute the mode of a dataSet', () => {
-        const dataSet = [1, 2, 3, 3, 3, 1, 1, 1, 1];
-        const res = statistical.mode(dataSet);
+    it('should compute the mode of a sample', () => {
+        const sample = [1, 2, 3, 3, 3, 1, 1, 1, 1];
+        const res = statistical.mode(sample);
 
         assert.equal(res, 1);
     });
 
-    it('should compute multiple mode value of a dataSet', () => {
-        const dataSet = [1, 2, 3, 3, 3, 3, 3, 1, 1, 1, 1];
-        const res = statistical.mode(dataSet);
+    it('should compute multiple mode value of a sample', () => {
+        const sample = [1, 2, 3, 3, 3, 3, 3, 1, 1, 1, 1];
+        const res = statistical.mode(sample);
 
         assert.sameMembers(res, [1, 3]);
     });
 
-    it('should compute mean of a dataSet', () => {
-        const dataSet = [1, 2, 3];
-        const res = statistical.mean(dataSet);
+    it('should compute mean of a sample', () => {
+        const sample = [1, 2, 3];
+        const res = statistical.mean(sample);
 
         assert.equal(res, 2);
     });
 
-    it('should compute variance of a dataSet', () => {
-        const dataSet = [1, 2, 3];
+    it('should compute variance of a sample', () => {
+        const sample = [1, 2, 3];
         /* Trunc result and keep two decimals without rounded to keep periodicity */
-        const res = Math.trunc(statistical.variance(dataSet) * 100) / 100;
+        const res = Math.trunc(statistical.variance(sample) * 100) / 100;
 
         assert.equal(res, 0.66);
     });
 
-    it('should compute standard deviation of a dataSet', () => {
-        const dataSet = [1, 2, 3];
+    it('should compute standard deviation of a sample', () => {
+        const sample = [1, 2, 3];
         /* Trunc result and keep two decimals without rounded to keep periodicity */
-        const res = Math.trunc(statistical.stdDeviation(dataSet) * 100) / 100;
+        const res = Math.trunc(statistical.stdDeviation(sample) * 100) / 100;
 
         assert.equal(res, 0.81);
     });
 
-    it('should compute all quantile of a dataSet', () => {
-        const dataSet = [1, 2, 3, 4, 19, 5, 6, 15, 50, 23, 14, 45];
-        const res = statistical.quantile(dataSet);
-
-        assert.sameMembers(res, [3, 6, 19, 50]);
-    });
-
-    it('should compute and return the quantile asked of a dataSet', () => {
-        const dataSet = [1, 2, 3, 4, 19, 5, 6, 15, 50, 23, 14, 45];
-        const res = statistical.quantile(dataSet, 2);
+    it('should compute and return the quantile asked of a sample', () => {
+        const sample = [1, 2, 3, 4, 19, 5, 6, 15, 50, 23, 14, 45];
+        const res = statistical.quantile(sample, 0.5);
 
         assert.equal(res, 6);
     });
 
-    it('should compute and return the percentile asked of a dataSet', () => {
-        const dataSet = [1, 2, 3, 4, 19, 5, 6, 15, 50, 23, 14, 45];
-        const res = statistical.percentile(dataSet, 30);
+    it('should compute and return the percentile asked of a sample', () => {
+        const sample = [1, 2, 3, 4, 19, 5, 6, 15, 50, 23, 14, 45];
+        const res = statistical.percentile(sample, 30);
 
         assert.equal(res, 5);
     });
 
     it('should compute summary with all descriptive statistics above', () => {
-        const dataSet = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
-        const res = statistical.summary(dataSet);
+        const sample = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
+        const res = statistical.summary(sample);
 
         assert.equal(res.sum, 193);
         assert.equal(res.median, 6);
@@ -123,7 +116,10 @@ describe('statistical', () => {
         assert.equal(Math.trunc(res.mean * 100) / 100, 14.84);
         assert.equal(Math.trunc(res.variance * 100) / 100, 238.28);
         assert.equal(Math.trunc(res.stdDeviation * 100) / 100, 15.43);
-        assert.sameMembers(res.quantile,  [4, 6, 19, 50]);
+        assert.deepEqual(res.quantile,  {
+            q1: 4,
+            q3: 19
+        });
     });
 
     it('should compute the factorial of any number', () => {
@@ -132,23 +128,30 @@ describe('statistical', () => {
         assert.equal(res, 120);
     });
 
-    it('should compute the geometric mean of a dataSet', () => {
-        const dataSet = [1, 2, 3, 4];
-        const res = statistical.geometricMean(dataSet);
+    it('should compute the geometric mean of a sample', () => {
+        const sample = [1, 2, 3, 4];
+        const res = statistical.geometricMean(sample);
 
         assert.equal(Math.trunc(res * 100) / 100, 2.21);
     });
 
-    it('should compute the harmonic mean of a dataSet', () => {
-        const dataSet = [1, 2, 3, 4];
-        const res = statistical.harmonicMean(dataSet);
+    it('should compute the harmonic mean of a sample', () => {
+        const sample = [1, 2, 3, 4];
+        const res = statistical.harmonicMean(sample);
 
         assert.equal(Math.trunc(res * 100) / 100, 1.92);
     });
 
-    it('should compute the non biased variance of a dataSet', () => {
-        const dataSet = [1, 2, 3, 4];
-        const res = statistical.sampleVariance(dataSet);
+    it('should compute the interquartile range of a sample', () => {
+        const sample = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
+        const res = statistical.interQuartileRange(sample);
+
+        assert.equal(res, 15);
+    });
+
+    it('should compute the non biased variance of a sample', () => {
+        const sample = [1, 2, 3, 4];
+        const res = statistical.sampleVariance(sample);
 
         assert.equal(Math.trunc(res * 100) / 100, 1.66);
     });
@@ -186,24 +189,24 @@ describe('statistical', () => {
     });
 
     it('should return boolean for chiSquaredGoodnessOfFit to valid a hypothesis distribution', () => {
-        const dataSet = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
+        const sample = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
         const distributionType = statistical.poisson;
-        const res = statistical.chiSquaredGoodnessOfFit(dataSet, distributionType, 0.005);
+        const res = statistical.chiSquaredGoodnessOfFit(sample, distributionType, 0.005);
 
         assert.deepEqual(res, false);
     });
 
-    it('should return t-value for a t-test with one dataSet', () => {
-        const dataSet = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
-        const res = statistical.tTestOneSample(dataSet, 15);
+    it('should return t-value for a t-test with one sample', () => {
+        const sample = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
+        const res = statistical.tTestOneSample(sample, 15);
 
         assert.equal(Math.trunc(res * 100) / 100, -0.03);
     });
 
-    it('should return t-value for a t-test with one dataSet', () => {
-        const dataSet1 = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
-        const dataSet2 = [2, 3, 4, 5, 20, 6, 7, 7, 15, 50, 23, 14, 45];
-        const res = statistical.tTestTwoSample(dataSet1, dataSet2);
+    it('should return t-value for a t-test with one sample', () => {
+        const sample1 = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
+        const sample2 = [2, 3, 4, 5, 20, 6, 7, 7, 15, 50, 23, 14, 45];
+        const res = statistical.tTestTwoSample(sample1, sample2);
 
         assert.equal(Math.trunc(res * 100) / 100, -0.52);
     });

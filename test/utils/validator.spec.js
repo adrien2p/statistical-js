@@ -6,6 +6,32 @@ const Validator = require('../../src/utils/validator');
 describe('Validator', () => {
     let validator;
     before(() => validator = new Validator());
+
+    it('should throw if rule not implemented', () => {
+        let res = null;
+
+        try {
+            validator.validate('value', '', ['json']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.notEqual(res, null);
+        assert.equal(res, 'Rule not implemented : json');
+    });
+
+    it('should throw if the parameter doesn\'t exist', () => {
+        let res = null;
+
+        try {
+            validator.validate('value', undefined, ['isArray']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.notEqual(res, null);
+        assert.equal(res, 'Missing parameter value');
+    });
     
     it('should throw if rules check is array and is not', () => {
         let res = null;

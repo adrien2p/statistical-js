@@ -2,11 +2,13 @@
 
 import { hook } from './utils/hook';
 import { cacheManager } from './utils/cacheManager';
+import Validator from './utils/validator';
 import StatisticalMethod from './statistical.method';
 
 export default class Statistical extends StatisticalMethod {
     constructor() {
         super();
+        this._validator = new Validator();
         this._settings = {
             cache: {
                 enabled: true,
@@ -32,9 +34,8 @@ export default class Statistical extends StatisticalMethod {
      * @param {*|object} options
      */
     set settings(options) {
-        if (!options && !options.cache) throw new Error('Missing parameter options (Statistical:settings');
-        if (isNaN(options.cache.rootElementCount)) throw new Error('rootElementCount must be a number (Statistical:settings');
-        if (isNaN(options.cache.subElementCount)) throw new Error('subElementCount must be a number (Statistical:settings');
+        this._validator.validate('options.cache.rootElementCount', options.cache.rootElementCount, ['isNumber', 'strictlyPositive']);
+        this._validator.validate('options.cache.subElementCount', options.cache.subElementCount, ['isNumber', 'strictlyPositive']);
 
         this._settings = {
             cache: {

@@ -16,8 +16,6 @@ const statistical = require('statistical-js');
 const res = statistical.sum([1, 2, 3]);
 ```
 
-To see what you can do with `statistical-js` you can go [there !](https://github.com/adrien2p/statistical-js/wiki).
-
 ### Prerequisites
 
 They are no dependencies, so you can use it just like that and ES6.
@@ -30,9 +28,12 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
 
 ### Actually provided
 
-    - epsilon (const value 0.0001)
-    - min
-    - max
+Click there to go to [documentation](https://github.com/adrien2p/statistical-js/wiki).
+
+    - Epsilon (const value 0.0001)
+    ---------------------------------------------
+    - Min
+    - Max
     - Sum
     - Median
     - Mode
@@ -41,14 +42,18 @@ To see how manage it if it necessary, you can go to [perfomance section !](https
     - Standard deviation
     - Quantile
     - Summary (regroup all descriptives statistics above)
+    ---------------------------------------------
     - Percentile
     - Factorial
     - Geometric mean
     - Harmonic mean
+    - InterQuartileRange
     - Sample variance (Non biased variance)
+    ---------------------------------------------
     - Binomial
     - Bernoulli
     - Poisson
+    ---------------------------------------------
     - Chi Squared Goodness Of Fit
     - T-test - one sample (t-value)
     - T-test - two sample (t-value)

@@ -1,7 +1,10 @@
 'use strict';
 
+import Validator from './validator';
+
 export default class CacheManager {
     constructor() {
+        this._validator = new Validator();
         this._cache = {};
         this._settings = {
             enabled: true,
@@ -34,7 +37,9 @@ export default class CacheManager {
      * @param {*} options
      */
     set settings(options) {
-        if (!options) throw new Error('Missing parameter options (CacheManager:settings)');
+        this._validator.validate('options.rootElementCount', options.rootElementCount, ['isNumber', 'strictlyPositive']);
+        this._validator.validate('options.subElementCount', options.subElementCount, ['isNumber', 'strictlyPositive']);
+
         this._settings = {
             enabled: options.enabled,
             rootElementCount: options.rootElementCount || 10,

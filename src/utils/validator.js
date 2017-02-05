@@ -11,6 +11,8 @@ export default class Validator {
      * @param {Array} ruless
      */
     validate(parameterName, value, rules) {
+        if (typeof value === 'undefined') throw new Error('Missing parameter ' + parameterName);
+
         rules.map(r => {
             switch (r) {
                 case 'isArray':
@@ -43,7 +45,7 @@ export default class Validator {
                             }
                         }
                     } else {
-                        throw new Error('Method not implemented : ' + r);
+                        throw new Error('Rule not implemented : ' + r);
                     }
             }
         });

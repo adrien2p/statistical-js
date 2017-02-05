@@ -21,78 +21,78 @@ export default class StatisticalMethod {
     }
 
     /**
-     * Return the smallest value of the dataSet.
+     * Return the smallest value of the sample.
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    min(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
-        return dataSet.sort((a, b) => a - b)[0];
+    min(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return sample.sort((a, b) => a - b)[0];
     }
 
     /**
-     * Return the biggest value of the dataSet.
+     * Return the biggest value of the sample.
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    max(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
-        return dataSet.sort((a, b) => a + b)[0];
+    max(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return sample.sort((a, b) => a + b)[0];
     }
 
 
     /**
      * The [Sum](https://en.wikipedia.org/wiki/Sum).
      *
-     * @param dataSet
+     * @param sample
      * @returns {*}
      */
-    sum(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
-        return dataSet.reduce((accumulator, current) => accumulator + current, 0);
+    sum(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return sample.reduce((accumulator, current) => accumulator + current, 0);
     }
 
     /**
      * The [Median](https://en.wikipedia.org/wiki/Median).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    median(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    median(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
 
-        const middle = Math.floor(dataSet.length / 2);
-        const isEven = dataSet.length % 2 === 0;
+        const middle = Math.floor(sample.length / 2);
+        const isEven = sample.length % 2 === 0;
 
-        dataSet = dataSet.sort((a, b) => a - b);
+        sample = sample.sort((a, b) => a - b);
 
-        return isEven ? (dataSet[middle - 1] + dataSet[middle]) / 2 : dataSet[middle];
+        return isEven ? (sample[middle - 1] + sample[middle]) / 2 : sample[middle];
     }
 
     /**
      * The [Mode](https://en.wikipedia.org/wiki/Mode).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {*}
      */
-    mode(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    mode(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
 
         const counter = {};
         let mode = [];
         let max = 0;
 
-        dataSet.map((value, index) => {
-            if (!(dataSet[index] in counter)) counter[dataSet[index]] = 0;
+        sample.map((value, index) => {
+            if (!(sample[index] in counter)) counter[sample[index]] = 0;
 
-            counter[dataSet[index]]++;
+            counter[sample[index]]++;
 
-            if (counter[dataSet[index]] === max) mode.push(dataSet[index]);
-            if (counter[dataSet[index]] > max) {
-                max = counter[dataSet[index]];
-                mode = [dataSet[index]];
+            if (counter[sample[index]] === max) mode.push(sample[index]);
+            if (counter[sample[index]] > max) {
+                max = counter[sample[index]];
+                mode = [sample[index]];
             }
         });
 
@@ -102,90 +102,94 @@ export default class StatisticalMethod {
     /**
      * The [Mean](https://en.wikipedia.org/wiki/Mean).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    mean(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    mean(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
 
-        return this.sum(dataSet) / dataSet.length;
+        return this.sum(sample) / sample.length;
     }
 
     /**
      * The [Variance](https://en.wikipedia.org/wiki/Variance).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    variance(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    variance(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
 
-        const avg = this.mean(dataSet);
-        const n = dataSet.length;
+        const avg = this.mean(sample);
+        const n = sample.length;
 
-        return this.sum(dataSet.map(value => Math.pow(value - avg, 2))) / n;
+        return this.sum(sample.map(value => Math.pow(value - avg, 2))) / n;
     }
 
     /**
      * The [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    stdDeviation(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
-        return Math.sqrt(this.variance(dataSet));
+    stdDeviation(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return Math.sqrt(this.variance(sample));
     }
 
     /**
      * The [Quantile](http://en.wikipedia.org/wiki/Quantile).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @param {number} index
      * @returns {Array}
      */
-    quantile(dataSet, index = null) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    quantile(sample, index) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        this._validator.validate('index', index, ['isNumber', [0, 1]]);
 
-        dataSet = dataSet.sort((a, b) => a - b);
-        return !index ?
-            [1, 2, 3, 4].map(i => dataSet[Math.ceil((dataSet.length * (i / 4))) - 1]) :
-            dataSet[Math.ceil((dataSet.length * (index / 4)) - 1)];
+        const sortedSample = sample.sort((a, b) => a - b);
+
+        return sortedSample[Math.ceil((sample.length * index) - 1)];
     }
 
     /**
      * The [Percentile](https://en.wikipedia.org/wiki/Percentile).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @param {number} index
      * @returns {Array}
      */
-    percentile(dataSet, index = null) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    percentile(sample, index) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        this._validator.validate('index', index, ['isNumber', [0, 100]]);
 
-        dataSet = dataSet.sort((a, b) => a - b);
-        return !index ? Array.from({length: 99}, (v, k) => k + 1).map(i => dataSet[i]) : dataSet[Math.ceil((index / 100) * dataSet.length)];
+        const sortedSample = sample.sort((a, b) => a - b);
+        return  sortedSample[Math.ceil((index / 100) * sample.length)];
     }
 
     /**
      * Return the entire result of descriptives statistics above.
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {{min: number, max: number, sum: *, median: number, mode: *, mean: number, variance: number, stdDeviation: number, quantile: Array}}
      */
-    summary(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    summary(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
 
         return {
-            min: this.min(dataSet),
-            max: this.max(dataSet),
-            sum: this.sum(dataSet),
-            median: this.median(dataSet),
-            mode: this.mode(dataSet),
-            mean: this.mean(dataSet),
-            variance: this.variance(dataSet),
-            stdDeviation: this.stdDeviation(dataSet),
-            quantile: this.quantile(dataSet)
+            min: this.min(sample),
+            max: this.max(sample),
+            sum: this.sum(sample),
+            median: this.median(sample),
+            mode: this.mode(sample),
+            mean: this.mean(sample),
+            variance: this.variance(sample),
+            stdDeviation: this.stdDeviation(sample),
+            quantile: {
+                q1: this.quantile(sample, 0.25),
+                q3: this.quantile(sample, 0.75)
+            }
         };
     }
 
@@ -209,23 +213,34 @@ export default class StatisticalMethod {
     /**
      * The [Geometric Mean](https://en.wikipedia.org/wiki/Geometric_mean).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    geometricMean(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
-        return Math.pow(dataSet.reduce((accumulator, current) => accumulator * current, 1), 1 / dataSet.length);
+    geometricMean(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return Math.pow(sample.reduce((accumulator, current) => accumulator * current, 1), 1 / sample.length);
     }
 
     /**
      * The [Harmonic Mean](https://en.wikipedia.org/wiki/Harmonic_mean).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    harmonicMean(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
-        return dataSet.length / dataSet.reduce((accumulator, current) => accumulator + (1 / current), 0);
+    harmonicMean(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return sample.length / sample.reduce((accumulator, current) => accumulator + (1 / current), 0);
+    }
+
+    /**
+     * The [Interquartile range](http://en.wikipedia.org/wiki/Interquartile_range)
+     *
+     * @param sample
+     * @returns {number}
+     */
+    interQuartileRange(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return this.quantile(sample, 0.75) - this.quantile(sample, 0.25);
     }
 
     /**
@@ -234,16 +249,16 @@ export default class StatisticalMethod {
      *
      * Non biased variance
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @returns {number}
      */
-    sampleVariance(dataSet) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    sampleVariance(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
 
-        const avg = this.mean(dataSet);
-        const n = dataSet.length - 1;
+        const avg = this.mean(sample);
+        const n = sample.length - 1;
 
-        return this.sum(dataSet.map(value => Math.pow(value - avg, 2))) / n;
+        return this.sum(sample.map(value => Math.pow(value - avg, 2))) / n;
     }
 
     /**
@@ -307,22 +322,22 @@ export default class StatisticalMethod {
      * The [χ2 (Chi-Squared) Goodness-of-Fit Test](http://en.wikipedia.org/wiki/Goodness_of_fit#Pearson.27s_chi-squared_test).
      * return if data follow a specified distribution
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @param {Function} distributionType
      * @param {number} significance
      * @returns {boolean}
      *
      * @exemple
-     * chiSquaredGoodnessOfFit(dataSet, 'poisson', 0.05)); //= false
+     * chiSquaredGoodnessOfFit(sample, 'poisson', 0.05)); //= false
      */
-    chiSquaredGoodnessOfFit(dataSet, distributionType, significance) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    chiSquaredGoodnessOfFit(sample, distributionType, significance) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
         this._validator.validate('distributionType', distributionType, ['isFunction']);
         this._validator.validate('significance', significance, ['isNumber', 'positive']);
 
-        /* Generate an array with number of ocurences for each data in dataSet. */
+        /* Generate an array with number of ocurences for each data in sample. */
         let observedFrequencies = [];
-        observedFrequencies = dataSet.reduce((accumulator, val) => {
+        observedFrequencies = sample.reduce((accumulator, val) => {
             if (accumulator[val] === undefined) accumulator[val] = 0;
             accumulator[val] += 1;
             return accumulator;
@@ -330,16 +345,16 @@ export default class StatisticalMethod {
 
         /* Number of hypothesized distribution parameters estimated, expected to be supplied in the distribution test. */
         /* Lose one degree of freedom for estimating `lambda` from the sample data. */
-        const dataSetMean = this.mean(dataSet);
+        const sampleMean = this.mean(sample);
 
         /* The hypothesized distribution. Generate the hypothesized distribution. */
-        const hypothesizedDistribution = distributionType(dataSetMean);
+        const hypothesizedDistribution = distributionType(sampleMean);
 
         /* Create an array holding a histogram of expected data given the */
         /* sample size and hypothesized distribution. */
         let expectedFrequencies = [];
         expectedFrequencies = Object.entries(hypothesizedDistribution).reduce((accumulator, current, i) => {
-            if (observedFrequencies[i]) accumulator[i] = current[1] * dataSet.length;
+            if (observedFrequencies[i]) accumulator[i] = current[1] * sample.length;
             return accumulator;
         }, []);
 
@@ -365,17 +380,17 @@ export default class StatisticalMethod {
     /**
      * The [a one-sample t-test](https://en.wikipedia.org/wiki/Student%27s_t-test#One-sample_t-test).
      *
-     * @param {Array} dataSet
+     * @param {Array} sample
      * @param {number} mu
      * @returns {number}
      */
-    tTestOneSample(dataSet, mu) {
-        this._validator.validate('dataSet', dataSet, ['isArray', 'length > 0']);
+    tTestOneSample(sample, mu) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
         this._validator.validate('mu', mu, ['isNumber']);
 
-        const mean = this.mean(dataSet);
-        const sd = this.stdDeviation(dataSet);
-        const sqrtSampleSize = Math.sqrt(dataSet.length);
+        const mean = this.mean(sample);
+        const sd = this.stdDeviation(sample);
+        const sqrtSampleSize = Math.sqrt(sample.length);
 
         /* t-value */
         return (mean - mu) / (sd / sqrtSampleSize);
@@ -384,20 +399,20 @@ export default class StatisticalMethod {
     /**
      * The [two sample t-test](http://en.wikipedia.org/wiki/Student's_t-test).
      *
-     * @param {Array} dataSet1
-     * @param {Array} dataSet2
+     * @param {Array} sample1
+     * @param {Array} sample2
      * @returns {number}
      */
-    tTestTwoSample(dataSet1, dataSet2) {
-        this._validator.validate('dataSet1', dataSet1, ['isArray', 'length > 0']);
-        this._validator.validate('dataSet2', dataSet2, ['isArray', 'length > 0']);
+    tTestTwoSample(sample1, sample2) {
+        this._validator.validate('sample1', sample1, ['isArray', 'length > 0']);
+        this._validator.validate('sample2', sample2, ['isArray', 'length > 0']);
 
-        const n = dataSet1.length;
-        const m = dataSet2.length;
-        const meanX = this.mean(dataSet1);
-        const meanY = this.mean(dataSet2);
-        const sampleVarianceX = this.sampleVariance(dataSet1);
-        const sampleVarianceY = this.sampleVariance(dataSet2);
+        const n = sample1.length;
+        const m = sample2.length;
+        const meanX = this.mean(sample1);
+        const meanY = this.mean(sample2);
+        const sampleVarianceX = this.sampleVariance(sample1);
+        const sampleVarianceY = this.sampleVariance(sample2);
 
         const weightedVariance = (((n - 1) * sampleVarianceX) + ((m - 1) * sampleVarianceY)) / (n + m - 2);
 
