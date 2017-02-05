@@ -6,7 +6,7 @@ export default class Hook {
     /**
      * Create a proxy to wrap a class method and intercept each call.
      *
-     * @param {object} object
+     * @param {object} target
      * @param {object} cacheManager
      */
     cache(target, cacheManager) {
