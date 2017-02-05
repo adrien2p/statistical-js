@@ -137,4 +137,103 @@ describe('Validator', () => {
         assert.notEqual(res, null);
         assert.equal(res, 'Parameter value must fall between 4 and 10');
     });
+
+    //-----------
+
+    it('should not throw if rules check is array and is it', () => {
+        let res = null;
+
+        try {
+            validator.validate('array', [], ['isArray']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+    it('should not throw if rules check is number and is it', () => {
+        let res = null;
+
+        try {
+            validator.validate('number', 1, ['isNumber']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+    it('should not throw if rules check is string and is it', () => {
+        let res = null;
+
+        try {
+            validator.validate('string','toto', ['isString']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+    it('should not throw if rules check is function and is it', () => {
+        let res = null;
+
+        try {
+            validator.validate('function', () => {}, ['isFunction']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+
+    it('should not throw if rules check array has length > 0 and has', () => {
+        let res = null;
+
+        try {
+            validator.validate('array', [1, 2], ['length > 0']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+    it('should not throw if rules check value is >= 0 and is it', () => {
+        let res = null;
+
+        try {
+            validator.validate('value', 0, ['positive']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+    it('should not throw if rules check value is > 0 and is it', () => {
+        let res = null;
+
+        try {
+            validator.validate('value', 1, ['strictlyPositive']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+    it('should not throw if rules check value fall between two numbers, and is it', () => {
+        let res = null;
+
+        try {
+            validator.validate('value', 6, [[4, 10]]);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
 });

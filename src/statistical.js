@@ -34,14 +34,11 @@ export default class Statistical extends StatisticalMethod {
      * @param {*|object} options
      */
     set settings(options) {
-        this._validator.validate('options.cache.rootElementCount', options.cache.rootElementCount, ['isNumber', 'strictlyPositive']);
-        this._validator.validate('options.cache.subElementCount', options.cache.subElementCount, ['isNumber', 'strictlyPositive']);
-
         this._settings = {
             cache: {
                 enabled: options.cache.enabled,
-                rootElementCount: options.cache.rootElementCount || 10,
-                subElementCount: options.cache.subElementCount || 30
+                rootElementCount: options.cache.rootElementCount || this._settings.cache.rootElementCount,
+                subElementCount: options.cache.subElementCount || this._settings.cache.subElementCount
             }
         };
         cacheManager.settings = this._settings.cache;

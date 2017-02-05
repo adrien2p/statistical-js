@@ -9,18 +9,42 @@ describe('statistical', () => {
         assert.deepEqual(statistical.chiSquaredProbTable, chiTable);
     });
 
-    it('should take less time with cache', () => {
-        const sample = Array.from({length: 1000000}, (v, k) => k);
+    describe('should take', () => {
+        afterEach(() => statistical.settings = { cache: { enabled: true }});
 
-        const t1 = new Date().getTime();
-        const res = statistical.stdDeviation(sample);
-        const t2 = new Date().getTime();
+        it('less time to compute with cache', () => {
+            const sample = Array.from({length: 1000000}, (v, k) => k);
 
-        const t3 = new Date().getTime();
-        const res2 = statistical.stdDeviation(sample);
-        const t4 = new Date().getTime();
+            const t1 = new Date().getTime();
+            const res = statistical.stdDeviation(sample);
+            const t2 = new Date().getTime();
 
-        assert.isBelow(t4 - t3, t2 - t1);
+            const t3 = new Date().getTime();
+            const res2 = statistical.stdDeviation(sample);
+            const t4 = new Date().getTime();
+
+            assert.isBelow(t4 - t3, 10);
+            assert.isBelow(t4 - t3, t2 - t1);
+        });
+
+        it('more time to compute without cache', () => {
+            const settings = statistical.settings;
+            
+            settings.cache.enabled = false;
+            statistical.settings = settings;
+
+            const sample = Array.from({length: 1000000}, (v, k) => k);
+
+            const t1 = new Date().getTime();
+            const res = statistical.stdDeviation(sample);
+            const t2 = new Date().getTime();
+
+            const t3 = new Date().getTime();
+            const res2 = statistical.stdDeviation(sample);
+            const t4 = new Date().getTime();
+
+            assert.isAbove(t4 - t3, 200);
+        });
     });
 
     it('should return the smallest value of a sample', () => {

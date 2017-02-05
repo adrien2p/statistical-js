@@ -37,13 +37,10 @@ export default class CacheManager {
      * @param {*} options
      */
     set settings(options) {
-        this._validator.validate('options.rootElementCount', options.rootElementCount, ['isNumber', 'strictlyPositive']);
-        this._validator.validate('options.subElementCount', options.subElementCount, ['isNumber', 'strictlyPositive']);
-
         this._settings = {
             enabled: options.enabled,
-            rootElementCount: options.rootElementCount || 10,
-            subElementCount: options.subElementCount || 30
+            rootElementCount: options.rootElementCount || this._settings.rootElementCount,
+            subElementCount: options.subElementCount || this._settings.subElementCount
         };
     }
 
