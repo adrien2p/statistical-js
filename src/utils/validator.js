@@ -36,9 +36,12 @@ export default class Validator {
                 case 'strictlyPositive':
                     if (value <= 0) throw new Error(`Parameter ${parameterName} must be strictly positive`);
                     break;
+                case 'length =':
+                    if (value[0].length !== value[1].length) throw new Error(`Parameter ${parameterName} must have the same number of values`);
+                    break;
                 default:
                     if (Array.isArray(r)) {
-                        const hasOnlyNumbers = !(r.map(v => !isNaN(v)).includes(false));
+                        const hasOnlyNumbers = !(r.map(v => typeof v === 'number').includes(false));
                         if (hasOnlyNumbers) {
                             if (r.length === 2) {
                                 if (value < r[0] || value > r[1]) throw new Error(`Parameter ${parameterName} must fall between ${r[0]} and ${r[1]}`);

@@ -49,6 +49,8 @@ Click there to go to [documentation](https://github.com/adrien2p/statistical-js/
     - Harmonic mean
     - InterQuartileRange
     - Sample variance (Non biased variance)
+    - Sample Standard deviation (Non biased std deviation)
+    - Covariance
     ---------------------------------------------
     - Binomial
     - Bernoulli

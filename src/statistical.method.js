@@ -24,7 +24,7 @@ export default class StatisticalMethod {
      * Return the smallest value of the sample.
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     min(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -35,7 +35,7 @@ export default class StatisticalMethod {
      * Return the biggest value of the sample.
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     max(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -58,7 +58,7 @@ export default class StatisticalMethod {
      * The [Median](https://en.wikipedia.org/wiki/Median).
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     median(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -103,7 +103,7 @@ export default class StatisticalMethod {
      * The [Mean](https://en.wikipedia.org/wiki/Mean).
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     mean(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -115,7 +115,7 @@ export default class StatisticalMethod {
      * The [Variance](https://en.wikipedia.org/wiki/Variance).
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     variance(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -130,7 +130,7 @@ export default class StatisticalMethod {
      * The [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation).
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     stdDeviation(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -141,7 +141,7 @@ export default class StatisticalMethod {
      * The [Quantile](http://en.wikipedia.org/wiki/Quantile).
      *
      * @param {Array} sample
-     * @param {number} index
+     * @param {Number} index
      * @returns {Array}
      */
     quantile(sample, index) {
@@ -157,7 +157,7 @@ export default class StatisticalMethod {
      * The [Percentile](https://en.wikipedia.org/wiki/Percentile).
      *
      * @param {Array} sample
-     * @param {number} index
+     * @param {Number} index
      * @returns {Array}
      */
     percentile(sample, index) {
@@ -196,8 +196,8 @@ export default class StatisticalMethod {
     /**
      * The [Factorial](https://en.wikipedia.org/wiki/Factorial).
      *
-     * @param {number} n
-     * @returns {number}
+     * @param {Number} n
+     * @returns {Number}
      */
     factorial(n) {
         this._validator.validate('n', n, ['isNumber', 'positive']);
@@ -214,7 +214,7 @@ export default class StatisticalMethod {
      * The [Geometric Mean](https://en.wikipedia.org/wiki/Geometric_mean).
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     geometricMean(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -225,7 +225,7 @@ export default class StatisticalMethod {
      * The [Harmonic Mean](https://en.wikipedia.org/wiki/Harmonic_mean).
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     harmonicMean(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -236,7 +236,7 @@ export default class StatisticalMethod {
      * The [Interquartile range](http://en.wikipedia.org/wiki/Interquartile_range)
      *
      * @param sample
-     * @returns {number}
+     * @returns {Number}
      */
     interQuartileRange(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -250,7 +250,7 @@ export default class StatisticalMethod {
      * Non biased variance
      *
      * @param {Array} sample
-     * @returns {number}
+     * @returns {Number}
      */
     sampleVariance(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -262,10 +262,49 @@ export default class StatisticalMethod {
     }
 
     /**
+     * The [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation).
+     * The [Biais](https://fr.wikipedia.org/wiki/Estimateur_(statistique)#Biais).
+     *
+     * Non biased std deviation
+     *
+     * @param {Array} sample
+     * @returns {Number}
+     */
+    sampleStdDeviation(sample) {
+        this._validator.validate('sample', sample, ['isArray', 'length > 0']);
+        return Math.sqrt(this.sampleVariance(sample));
+    }
+
+    /**
+     * The [Sample covariance](https://en.wikipedia.org/wiki/Sample_mean_and_sampleCovariance) of two datasets:
+     *
+     * @param {Array} sample1
+     * @param {Array} sample2
+     * @returns {number}
+     */
+    covariance(sample1, sample2) {
+        this._validator.validate('sample1', sample1, ['isArray', 'length > 0']);
+        this._validator.validate('sample2', sample2, ['isArray', 'length > 0']);
+        this._validator.validate('sample1 and sample2', [sample1, sample2], ['length =']);
+
+        const meanX = this.mean(sample1);
+        const meanY = this.mean(sample2);
+
+        const numerator = sample1.reduce((accumulator, current, i) => {
+            accumulator += (current - meanX) * (sample2[i] - meanY);
+            return accumulator;
+        }, 0);
+
+        const besselsCorrection = sample1.length - 1;
+
+        return numerator / besselsCorrection;
+    }
+
+    /**
      * The [Binomial Distribution](http://en.wikipedia.org/wiki/Binomial_distribution).
      *
-     * @param {number} trials
-     * @param {number} probability
+     * @param {Number} trials
+     * @param {Number} probability
      * @returns {{}}
      */
     binomial(trials, probability) {
@@ -288,7 +327,7 @@ export default class StatisticalMethod {
     /**
      * The [Bernoulli distribution](http://en.wikipedia.org/wiki/Bernoulli_distribution).
      *
-     * @param {number} p
+     * @param {Number} p
      * @returns {Object}
      */
     bernoulli(p) {
@@ -299,7 +338,7 @@ export default class StatisticalMethod {
     /**
      * The [Poisson Distribution](http://en.wikipedia.org/wiki/Poisson_distribution).
      *
-     * @param {number} lambda
+     * @param {Number} lambda
      * @returns {{}}
      */
     poisson(lambda) {
@@ -324,7 +363,7 @@ export default class StatisticalMethod {
      *
      * @param {Array} sample
      * @param {Function} distributionType
-     * @param {number} significance
+     * @param {Number} significance
      * @returns {boolean}
      *
      * @exemple
@@ -381,8 +420,8 @@ export default class StatisticalMethod {
      * The [a one-sample t-test](https://en.wikipedia.org/wiki/Student%27s_t-test#One-sample_t-test).
      *
      * @param {Array} sample
-     * @param {number} mu
-     * @returns {number}
+     * @param {Number} mu
+     * @returns {Number}
      */
     tTestOneSample(sample, mu) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -401,7 +440,7 @@ export default class StatisticalMethod {
      *
      * @param {Array} sample1
      * @param {Array} sample2
-     * @returns {number}
+     * @returns {Number}
      */
     tTestTwoSample(sample1, sample2) {
         this._validator.validate('sample1', sample1, ['isArray', 'length > 0']);
@@ -419,4 +458,6 @@ export default class StatisticalMethod {
         /* t-value */
         return (meanX - meanY) / Math.sqrt(weightedVariance * (1 / (n + 1) / m));
     }
+
+
 }

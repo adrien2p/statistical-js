@@ -180,6 +180,21 @@ describe('statistical', () => {
         assert.equal(Math.trunc(res * 100) / 100, 1.66);
     });
 
+    it('should compute the non biased std deviation of a sample', () => {
+        const sample = [1, 2, 3, 4];
+        const res = statistical.sampleStdDeviation(sample);
+
+        assert.equal(Math.trunc(res * 100) / 100, 1.29);
+    });
+
+    it('should compute covariance of two sample', () => {
+        const sample1 = [1, 2, 3, 4, 19, 5, 6, 6, 15, 50, 23, 14, 45];
+        const sample2 = [1, 2, 30, 10, 19, 50, 6, 2, 15, 5, 3, 4, 5];
+        const res = statistical.covariance(sample1, sample2);
+
+        assert.equal(Math.trunc(res * 100) / 100, -53.13);
+    });
+
     it('should compute binomial probability distribution', () => {
         const res = statistical.binomial(10, 0.5);
 

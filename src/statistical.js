@@ -5,6 +5,7 @@ import { cacheManager } from './utils/cacheManager';
 import Validator from './utils/validator';
 import StatisticalMethod from './statistical.method';
 
+
 export default class Statistical extends StatisticalMethod {
     constructor() {
         super();

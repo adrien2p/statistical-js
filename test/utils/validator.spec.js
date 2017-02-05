@@ -138,9 +138,22 @@ describe('Validator', () => {
         assert.equal(res, 'Parameter value must fall between 4 and 10');
     });
 
+    it('should throw if rules check arrays are same number of values, but is not', () => {
+        let res = null;
+
+        try {
+            validator.validate('sample1 and sample2', [[1], [1, 2]], ['length =']);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.notEqual(res, null);
+        assert.equal(res, 'Parameter sample1 and sample2 must have the same number of values');
+    });
+
     //-----------
 
-    it('should not throw if rules check is array and is it', () => {
+    it('should not throw if rules check is array and it is', () => {
         let res = null;
 
         try {
@@ -152,7 +165,7 @@ describe('Validator', () => {
         assert.equal(res, null);
     });
 
-    it('should not throw if rules check is number and is it', () => {
+    it('should not throw if rules check is number and it is', () => {
         let res = null;
 
         try {
@@ -164,7 +177,7 @@ describe('Validator', () => {
         assert.equal(res, null);
     });
 
-    it('should not throw if rules check is string and is it', () => {
+    it('should not throw if rules check is string and it is', () => {
         let res = null;
 
         try {
@@ -176,7 +189,7 @@ describe('Validator', () => {
         assert.equal(res, null);
     });
 
-    it('should not throw if rules check is function and is it', () => {
+    it('should not throw if rules check is function and it is', () => {
         let res = null;
 
         try {
@@ -201,7 +214,7 @@ describe('Validator', () => {
         assert.equal(res, null);
     });
 
-    it('should not throw if rules check value is >= 0 and is it', () => {
+    it('should not throw if rules check value is >= 0 and it is', () => {
         let res = null;
 
         try {
@@ -213,7 +226,7 @@ describe('Validator', () => {
         assert.equal(res, null);
     });
 
-    it('should not throw if rules check value is > 0 and is it', () => {
+    it('should not throw if rules check value is > 0 and it is', () => {
         let res = null;
 
         try {
@@ -225,11 +238,23 @@ describe('Validator', () => {
         assert.equal(res, null);
     });
 
-    it('should not throw if rules check value fall between two numbers, and is it', () => {
+    it('should not throw if rules check value fall between two numbers, and it is', () => {
         let res = null;
 
         try {
             validator.validate('value', 6, [[4, 10]]);
+        } catch (e) {
+            res = e.message;
+        }
+
+        assert.equal(res, null);
+    });
+
+    it('should not throw if rules check arrays are same number of values, and it is', () => {
+        let res = null;
+
+        try {
+            validator.validate('sample1 and sample2', [[1], [1]], ['length =']);
         } catch (e) {
             res = e.message;
         }
