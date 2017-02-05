@@ -489,4 +489,4 @@ const chiSquaredTable = {
     }
 };
 
-module.exports = chiSquaredTable;
+export default chiSquaredTable;

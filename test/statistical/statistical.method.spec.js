@@ -2,7 +2,7 @@
 
 const assert = require('chai').assert;
 const chiTable = require('../../src/probability/chiSquaredTable');
-const statistical = require('../../src/statistical');
+const statistical = require('../../src/statistical').statistical;
 
 describe('statistical', () => {
     it('should return the chi squared probability table', () => {

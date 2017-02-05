@@ -14,7 +14,7 @@
     "dev": "webpack --progress --colors --watch --mode=dev",
     "test": "mocha --compilers js:babel-core/register --require babel-polyfill --colors ./test/**/*.spec.js",
     "test:watch": "mocha --timeout 3000 --compilers js:babel-core/register --colors -w ./test/**/*.spec.js",
-    "test:coverage": "./node_modules/.bin/istanbul cover _mocha ./test/**/*.spec.js --report lcovonly && cat ./coverage/lcov.info | coveralls",
+    "test:coverage": "./node_modules/.bin/istanbul cover _mocha -- --compilers js:babel-register ./test/**/*.spec.js --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "lint": "eslint src/** --fix"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "eslint": "^3.14.1",
     "eslint-config-google": "^0.7.1",
     "eslint-loader": "^1.6.1",
-    "istanbul": "^0.4.5",
+    "istanbul": "^1.1.0-alpha.1",
     "mocha": "2.3.4",
     "mocha-lcov-reporter": "^1.2.0",
     "webpack": "1.12.9",

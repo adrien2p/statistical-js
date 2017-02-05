@@ -1,8 +1,8 @@
 'use strict';
 
 const assert = require('chai').assert;
-const cacheManager = require('../../src/utils/cacheManager');
-const statistical = require('../../src/statistical');
+const cacheManager = require('../../src/utils/cacheManager').cacheManager;
+const statistical = require('../../src/statistical').statistical;
 
 describe('CacheManager', () => {
     beforeEach(() => {

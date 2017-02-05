@@ -1,12 +1,12 @@
 'use strict';
 
-const validator = require('./utils/validator');
-const epsilon = require('./probability/epsilon');
-const chiSquaredTable = require('./probability/chiSquaredTable');
+import Validator from './utils/validator';
+import epsilon from './probability/epsilon';
+import chiSquaredTable from './probability/chiSquaredTable';
 
-class StatisticalMethod {
+export default class StatisticalMethod {
     constructor() {
-        this._validator = validator;
+        this._validator = new Validator();
         this._chiSquaredProbTable = chiSquaredTable;
         this._epsilon = epsilon;
     }
@@ -405,5 +405,3 @@ class StatisticalMethod {
         return (meanX - meanY) / Math.sqrt(weightedVariance * (1 / (n + 1) / m));
     }
 }
-
-module.exports = StatisticalMethod;

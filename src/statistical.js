@@ -1,10 +1,10 @@
 'use strict';
 
-const interceptor = require('./utils/interceptor');
-const cacheManager = require('./utils/cacheManager');
-const StatisticalMethod = require('./statistical.method');
+import { hook } from './utils/hook';
+import { cacheManager } from './utils/cacheManager';
+import StatisticalMethod from './statistical.method';
 
-class Statistical extends StatisticalMethod {
+export default class Statistical extends StatisticalMethod {
     constructor() {
         super();
         this._settings = {
@@ -14,12 +14,7 @@ class Statistical extends StatisticalMethod {
                 subElementCount: 30
             }
         };
-        return interceptor.cacheBefore(this, cacheManager, [
-            /* Excluded from the proxy */
-            '_settings',
-            'settings',
-            'chiSquaredProbTable'
-        ]);
+        return hook.cache(this, cacheManager);
     }
 
     /**
@@ -52,4 +47,4 @@ class Statistical extends StatisticalMethod {
     }
 }
 
-module.exports = new Statistical();
+export const statistical = new Statistical();

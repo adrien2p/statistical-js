@@ -1,6 +1,6 @@
 'use strict';
 
-class Validator {
+export default class Validator {
     constructor() {}
 
     /**
@@ -49,5 +49,3 @@ class Validator {
         });
     }
 }
-
-module.exports = new Validator();

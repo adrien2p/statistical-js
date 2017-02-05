@@ -1,9 +1,12 @@
 'use strict';
 
 const assert = require('chai').assert;
-const validator = require('../../src/utils/validator');
+const Validator = require('../../src/utils/validator');
 
 describe('Validator', () => {
+    let validator;
+    before(() => validator = new Validator());
+    
     it('should throw if rules check is array and is not', () => {
         let res = null;
 

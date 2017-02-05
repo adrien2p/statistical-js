@@ -1,6 +1,6 @@
 'use strict';
 
-class CacheManager {
+export default class CacheManager {
     constructor() {
         this._cache = {};
         this._settings = {
@@ -91,4 +91,4 @@ class CacheManager {
     }
 }
 
-module.exports = new CacheManager();
+export const cacheManager = new CacheManager();
