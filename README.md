@@ -16,11 +16,6 @@ const statistical = require('statistical-js');
 const res = statistical.sum([1, 2, 3]);
 ```
 
-### Prerequisites
-
-They are no dependencies, so you can use it just like that and ES6.
-
-
 ### Performance
 
 To provide you with the best performance when using statistical-js, this library has implemented a variable cache system to save the last calculations.
@@ -49,7 +44,7 @@ Click there see the complete [documentation](https://github.com/adrien2p/statist
     - Sample variance (Non biased variance)
     - Sample Standard deviation (Non biased std deviation)
 
--Advanced statistics
+- Advanced statistics
     - Covariance
     - Binomial
     - Bernoulli
