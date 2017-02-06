@@ -53,7 +53,7 @@ Click there see the complete [documentation](https://github.com/adrien2p/statist
     - T-test - one sample (t-value)
     - T-test - two sample (t-value)
 
-As soon as possible, more feature will be available.
+As soon as possible, more features will be available.
 
 
 ## Test
