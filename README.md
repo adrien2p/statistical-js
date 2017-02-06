@@ -48,6 +48,7 @@ Click there see the complete [documentation](https://github.com/adrien2p/statist
     - InterQuartileRange
     - Sample variance (Non biased variance)
     - Sample Standard deviation (Non biased std deviation)
+
 -Advanced statistics
     - Covariance
     - Binomial
