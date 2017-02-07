@@ -460,4 +460,39 @@ export default class StatisticalMethod {
     }
 
 
+    /**
+     * [Simple linear regression](http://en.wikipedia.org/wiki/Simple_linear_regression)
+     *
+     * @param {Array<Array<Number>>} data
+     * @returns {*}
+     */
+    lineareRegression(data) {
+        this._validator.validate('data', data, ['isArray']);
+
+        const dataLength = data.length;
+
+        /* 1 element, the result will be a slope to 0 and an intersect ot the second coordinate elements */
+        if (dataLength === 1) return { slope, intersect: data[0][1] };
+
+        /* Compute all sum, and finally the slope and intersect */
+        let sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0;
+
+        data.forEach(element => {
+            sum_x += element[0];
+            sum_y += element[1];
+
+            sum_xx += Math.pow(element[0], 2);
+            sum_xy += element[0] * element[1];
+        });
+
+        const slope = ((dataLength * sum_xy) - (sum_x * sum_y)) / ((dataLength * sum_xx) - (sum_x * sum_x));
+        const intersect = (sum_y / dataLength) - ((slope * sum_x) / dataLength);
+
+        // Return both values as an object.
+        return { slope, intersect };
+    }
+
+    linearRegressionLine() {
+        
+    }
 }

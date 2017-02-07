@@ -52,6 +52,7 @@ Click there see the complete [documentation](https://github.com/adrien2p/statist
     - Chi Squared Goodness Of Fit
     - T-test - one sample (t-value)
     - T-test - two sample (t-value)
+    - Linear regression (slope, intersect)
 
 As soon as possible, more features will be available.
 
@@ -66,7 +67,8 @@ If you want to generate coverage in `./coverage`.
 
 ## Lint
 
-The `npm run lint` command lint code and fix it at the same time.
+The command to lint code and fix it at the same time
+> npm run lint
 
 ## build
 
