@@ -466,7 +466,7 @@ export default class StatisticalMethod {
      * @param {Array<Array<Number>>} data
      * @returns {*}
      */
-    lineareRegression(data) {
+    linearRegression(data) {
         this._validator.validate('data', data, ['isArray']);
 
         const dataLength = data.length;
@@ -490,9 +490,5 @@ export default class StatisticalMethod {
 
         // Return both values as an object.
         return { slope, intersect };
-    }
-
-    linearRegressionLine() {
-        
     }
 }

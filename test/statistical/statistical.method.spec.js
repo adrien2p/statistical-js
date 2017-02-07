@@ -252,7 +252,7 @@ describe('statistical', () => {
 
     it('should return slope and intersect for a linear regression', () => {
         const data = [[1, 2], [0, 1]];
-        const res = statistical.lineareRegression(data);
+        const res = statistical.linearRegression(data);
 
         assert.deepEqual(res, { slope: 1, intersect: 1 });
     });
