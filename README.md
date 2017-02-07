@@ -16,22 +16,16 @@ const statistical = require('statistical-js');
 const res = statistical.sum([1, 2, 3]);
 ```
 
-### Prerequisites
-
-They are no dependencies, so you can use it just like that and ES6.
-
-
 ### Performance
 
 To provide you with the best performance when using statistical-js, this library has implemented a variable cache system to save the last calculations.
 To see how manage it if it necessary, you can go to [perfomance section !](https://github.com/adrien2p/statistical-js/wiki/Performance)
 
-### Actually provided
+### Actually supported
 
-Click there to go to [documentation](https://github.com/adrien2p/statistical-js/wiki).
+Click there see the complete [documentation](https://github.com/adrien2p/statistical-js/wiki).
 
-    - Epsilon (const value 0.0001)
-    ---------------------------------------------
+- Simple statistics
     - Min
     - Max
     - Sum
@@ -42,7 +36,6 @@ Click there to go to [documentation](https://github.com/adrien2p/statistical-js/
     - Standard deviation
     - Quantile
     - Summary (regroup all descriptives statistics above)
-    ---------------------------------------------
     - Percentile
     - Factorial
     - Geometric mean
@@ -50,30 +43,38 @@ Click there to go to [documentation](https://github.com/adrien2p/statistical-js/
     - InterQuartileRange
     - Sample variance (Non biased variance)
     - Sample Standard deviation (Non biased std deviation)
+
+- Advanced statistics
     - Covariance
-    ---------------------------------------------
     - Binomial
     - Bernoulli
     - Poisson
-    ---------------------------------------------
     - Chi Squared Goodness Of Fit
     - T-test - one sample (t-value)
     - T-test - two sample (t-value)
 
+As soon as possible, more features will be available.
+
 
 ## Test
 
-- without coverage `npm run test`
-- with coverage `npm run test:coverage`
+To run test without coverage.
+> npm run test
+
+If you want to generate coverage in `./coverage`.
+> npm run test:coverage
 
 ## Lint
 
-- To run lint and fix `npm run lint`
+The `npm run lint` command lint code and fix it at the same time.
 
 ## build
 
-- build dev version `npm run dev`
-- build prod version `npm run build`
+To build dev version `./lib/statistical.js`
+> npm run build:dev
+
+If you want to generate the production version `./lib/statistical.min.js`
+> npm run build:prod
 
 ## License
 
