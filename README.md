@@ -13,7 +13,7 @@ Library that provide you some statistics which are useful and with the best perf
 ```javascript
 /* how to import and use it */
 const statistical = require('statistical-js');
-const res = statistical.sum([1, 2, 3]);
+const res = statistical.methods.sum([1, 2, 3]);
 ```
 
 ### Performance
