@@ -1,7 +1,7 @@
 {
   "parserOptions": {
-    "ecmaVersion": 8
-    // or 2017
+    "ecmaVersion": 8,
+    "sourceType": "module"
   },
   "ecmaFeatures": {
     "arrowFunctions": true,

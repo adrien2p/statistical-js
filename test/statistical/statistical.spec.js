@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('chai').assert;
-const statistical = require('../../src/statistical').statistical;
+const statistical = require('../../src/statistical');
 const StatisticalMethod = require('../../src/methods/statistical.method');
 
 describe('Statistical', () => {

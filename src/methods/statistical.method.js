@@ -165,7 +165,7 @@ export default class StatisticalMethod {
         this._validator.validate('index', index, ['isNumber', [0, 100]]);
 
         const sortedSample = sample.sort((a, b) => a - b);
-        return  sortedSample[Math.ceil((index / 100) * sample.length)];
+        return sortedSample[Math.ceil((index / 100) * sample.length)];
     }
 
     /**
@@ -475,18 +475,18 @@ export default class StatisticalMethod {
         if (dataLength === 1) return { slope, intersect: data[0][1] };
 
         /* Compute all sum, and finally the slope and intersect */
-        let sum_x = 0, sum_y = 0, sum_xx = 0, sum_xy = 0;
+        let sumX = 0, sumY = 0, sumXX = 0, sumXY = 0;
 
         data.forEach(element => {
-            sum_x += element[0];
-            sum_y += element[1];
+            sumX += element[0];
+            sumY += element[1];
 
-            sum_xx += Math.pow(element[0], 2);
-            sum_xy += element[0] * element[1];
+            sumXX += Math.pow(element[0], 2);
+            sumXY += element[0] * element[1];
         });
 
-        const slope = ((dataLength * sum_xy) - (sum_x * sum_y)) / ((dataLength * sum_xx) - (sum_x * sum_x));
-        const intersect = (sum_y / dataLength) - ((slope * sum_x) / dataLength);
+        const slope = ((dataLength * sumXY) - (sumX * sumY)) / ((dataLength * sumXX) - (sumX * sumX));
+        const intersect = (sumY / dataLength) - ((slope * sumX) / dataLength);
 
         // Return both values as an object.
         return { slope, intersect };

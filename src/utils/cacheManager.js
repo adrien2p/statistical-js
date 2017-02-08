@@ -2,7 +2,7 @@
 
 import Validator from './validator';
 
-export default class CacheManager {
+export class CacheManager {
     constructor() {
         this._validator = new Validator();
         this._cache = {};
@@ -93,4 +93,5 @@ export default class CacheManager {
     }
 }
 
-export const cacheManager = new CacheManager();
+const cacheManager = new CacheManager();
+export default cacheManager;
