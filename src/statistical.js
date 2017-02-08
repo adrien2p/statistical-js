@@ -3,12 +3,11 @@
 import { hook } from './utils/hook';
 import { cacheManager } from './utils/cacheManager';
 import Validator from './utils/validator';
-import StatisticalMethod from './statistical.method';
+import StatisticalMethod from './methods/statistical.method';
 
 
-export default class Statistical extends StatisticalMethod {
+export default class Statistical {
     constructor() {
-        super();
         this._validator = new Validator();
         this._settings = {
             cache: {
@@ -17,7 +16,6 @@ export default class Statistical extends StatisticalMethod {
                 subElementCount: 30
             }
         };
-        return hook.cache(this, cacheManager);
     }
 
     /**
@@ -43,6 +41,10 @@ export default class Statistical extends StatisticalMethod {
             }
         };
         cacheManager.settings = this._settings.cache;
+    }
+
+    get methods() {
+        return hook.cache(new StatisticalMethod(), cacheManager);
     }
 }
 

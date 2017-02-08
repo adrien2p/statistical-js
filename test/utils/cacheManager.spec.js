@@ -42,7 +42,7 @@ describe('CacheManager', () => {
 
     it('should find result in the cache by the dataSet', () => {
         const dataSet = [1, 2, 3];
-        const res = statistical.stdDeviation(dataSet);
+        const res = statistical.methods.stdDeviation(dataSet);
         const cache = cacheManager.find('stdDeviation', dataSet);
 
         assert.equal(cache.dataSet, dataSet);

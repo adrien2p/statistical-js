@@ -1,8 +1,8 @@
 'use strict';
 
-import Validator from './utils/validator';
-import epsilon from './probability/epsilon';
-import chiSquaredTable from './probability/chiSquaredTable';
+import Validator from '../utils/validator';
+import epsilon from '../constante/epsilon';
+import chiSquaredTable from '../constante/chiSquaredTable';
 
 export default class StatisticalMethod {
     constructor() {
