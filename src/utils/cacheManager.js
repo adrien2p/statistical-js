@@ -2,7 +2,7 @@
 
 import Validator from './validator';
 
-export class CacheManager {
+class CacheManager {
     constructor() {
         this._validator = new Validator();
         this._cache = {};

@@ -1,6 +1,6 @@
 'use strict';
 
-export default class Hook {
+class Hook {
     constructor() {}
 
     /**
@@ -35,4 +35,5 @@ export default class Hook {
     }
 }
 
-export const hook = new Hook();
+const hook = new Hook();
+export default hook;

@@ -1,12 +1,12 @@
 'use strict';
 
-import { hook } from './utils/hook';
+import hook from './utils/hook';
 import cacheManager from './utils/cacheManager';
 import Validator from './utils/validator';
 import StatisticalMethod from './methods/statistical.method';
 
 
-export class Statistical {
+class Statistical {
     constructor() {
         this._validator = new Validator();
         this._settings = {

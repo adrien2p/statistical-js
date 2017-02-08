@@ -4,7 +4,7 @@ import Validator from '../utils/validator';
 import epsilon from '../constante/epsilon';
 import chiSquaredTable from '../constante/chiSquaredTable';
 
-export default class StatisticalMethod {
+class StatisticalMethod {
     constructor() {
         this._validator = new Validator();
         this._chiSquaredProbTable = chiSquaredTable;
@@ -492,3 +492,5 @@ export default class StatisticalMethod {
         return { slope, intersect };
     }
 }
+
+export default StatisticalMethod;
