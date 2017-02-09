@@ -73,10 +73,10 @@ The command to lint code and fix it at the same time
 ## build
 
 To build dev version `./lib/statistical.js`
-> npm run build:dev
+> npm run dev
 
 If you want to generate the production version `./lib/statistical.min.js`
-> npm run build:prod
+> npm run build
 
 ## License
 
