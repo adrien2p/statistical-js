@@ -24,7 +24,7 @@ class StatisticalMethod {
      * Return the smallest value of the sample.
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     min(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -35,7 +35,7 @@ class StatisticalMethod {
      * Return the biggest value of the sample.
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     max(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -58,7 +58,7 @@ class StatisticalMethod {
      * The [Median](https://en.wikipedia.org/wiki/Median).
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     median(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -103,7 +103,7 @@ class StatisticalMethod {
      * The [Mean](https://en.wikipedia.org/wiki/Mean).
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     mean(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -115,7 +115,7 @@ class StatisticalMethod {
      * The [Variance](https://en.wikipedia.org/wiki/Variance).
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     variance(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -130,7 +130,7 @@ class StatisticalMethod {
      * The [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation).
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     stdDeviation(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -141,12 +141,12 @@ class StatisticalMethod {
      * The [Quantile](http://en.wikipedia.org/wiki/Quantile).
      *
      * @param {Array} sample
-     * @param {Number} index
+     * @param {number} index
      * @returns {Array}
      */
     quantile(sample, index) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
-        this._validator.validate('index', index, ['isNumber', [0, 1]]);
+        this._validator.validate('index', index, ['isnumber', [0, 1]]);
 
         const sortedSample = sample.sort((a, b) => a - b);
 
@@ -157,12 +157,12 @@ class StatisticalMethod {
      * The [Percentile](https://en.wikipedia.org/wiki/Percentile).
      *
      * @param {Array} sample
-     * @param {Number} index
+     * @param {number} index
      * @returns {Array}
      */
     percentile(sample, index) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
-        this._validator.validate('index', index, ['isNumber', [0, 100]]);
+        this._validator.validate('index', index, ['isnumber', [0, 100]]);
 
         const sortedSample = sample.sort((a, b) => a - b);
         return sortedSample[Math.ceil((index / 100) * sample.length)];
@@ -196,11 +196,11 @@ class StatisticalMethod {
     /**
      * The [Factorial](https://en.wikipedia.org/wiki/Factorial).
      *
-     * @param {Number} n
-     * @returns {Number}
+     * @param {number} n
+     * @returns {number}
      */
     factorial(n) {
-        this._validator.validate('n', n, ['isNumber', 'positive']);
+        this._validator.validate('n', n, ['isnumber', 'positive']);
 
         let factorialResult = 1;
         for (let i = 2; i <= n; i++) {
@@ -214,7 +214,7 @@ class StatisticalMethod {
      * The [Geometric Mean](https://en.wikipedia.org/wiki/Geometric_mean).
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     geometricMean(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -225,7 +225,7 @@ class StatisticalMethod {
      * The [Harmonic Mean](https://en.wikipedia.org/wiki/Harmonic_mean).
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     harmonicMean(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -236,7 +236,7 @@ class StatisticalMethod {
      * The [Interquartile range](http://en.wikipedia.org/wiki/Interquartile_range)
      *
      * @param sample
-     * @returns {Number}
+     * @returns {number}
      */
     interQuartileRange(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -250,7 +250,7 @@ class StatisticalMethod {
      * Non biased variance
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     sampleVariance(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -268,7 +268,7 @@ class StatisticalMethod {
      * Non biased std deviation
      *
      * @param {Array} sample
-     * @returns {Number}
+     * @returns {number}
      */
     sampleStdDeviation(sample) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
@@ -303,13 +303,13 @@ class StatisticalMethod {
     /**
      * The [Binomial Distribution](http://en.wikipedia.org/wiki/Binomial_distribution).
      *
-     * @param {Number} trials
-     * @param {Number} probability
+     * @param {number} trials
+     * @param {number} probability
      * @returns {{}}
      */
     binomial(trials, probability) {
-        this._validator.validate('trials', trials, ['isNumber']);
-        this._validator.validate('probability', probability, ['isNumber', [0, 1]]);
+        this._validator.validate('trials', trials, ['isnumber']);
+        this._validator.validate('probability', probability, ['isnumber', [0, 1]]);
 
         let x = 0;
         let cumulativeProbability = 0;
@@ -327,18 +327,18 @@ class StatisticalMethod {
     /**
      * The [Bernoulli distribution](http://en.wikipedia.org/wiki/Bernoulli_distribution).
      *
-     * @param {Number} p
+     * @param {number} p
      * @returns {Object}
      */
     bernoulli(p) {
-        this._validator.validate('p', p, ['isNumber', [0, 1]]);
+        this._validator.validate('p', p, ['isnumber', [0, 1]]);
         return this.binomial(1, p);
     }
 
     /**
      * The [Poisson Distribution](http://en.wikipedia.org/wiki/Poisson_distribution).
      *
-     * @param {Number} lambda
+     * @param {number} lambda
      * @returns {{}}
      */
     poisson(lambda) {
@@ -363,7 +363,7 @@ class StatisticalMethod {
      *
      * @param {Array} sample
      * @param {Function} distributionType
-     * @param {Number} significance
+     * @param {number} significance
      * @returns {boolean}
      *
      * @exemple
@@ -372,7 +372,7 @@ class StatisticalMethod {
     chiSquaredGoodnessOfFit(sample, distributionType, significance) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
         this._validator.validate('distributionType', distributionType, ['isFunction']);
-        this._validator.validate('significance', significance, ['isNumber', 'positive']);
+        this._validator.validate('significance', significance, ['isnumber', 'positive']);
 
         /* Generate an array with number of ocurences for each data in sample. */
         let observedFrequencies = [];
@@ -382,7 +382,7 @@ class StatisticalMethod {
             return accumulator;
         }, []).filter(v => v !== undefined);
 
-        /* Number of hypothesized distribution parameters estimated, expected to be supplied in the distribution test. */
+        /* number of hypothesized distribution parameters estimated, expected to be supplied in the distribution test. */
         /* Lose one degree of freedom for estimating `lambda` from the sample data. */
         const sampleMean = this.mean(sample);
 
@@ -420,12 +420,12 @@ class StatisticalMethod {
      * The [a one-sample t-test](https://en.wikipedia.org/wiki/Student%27s_t-test#One-sample_t-test).
      *
      * @param {Array} sample
-     * @param {Number} mu
-     * @returns {Number}
+     * @param {number} mu
+     * @returns {number}
      */
     tTestOneSample(sample, mu) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
-        this._validator.validate('mu', mu, ['isNumber']);
+        this._validator.validate('mu', mu, ['isnumber']);
 
         const mean = this.mean(sample);
         const sd = this.stdDeviation(sample);
@@ -440,7 +440,7 @@ class StatisticalMethod {
      *
      * @param {Array} sample1
      * @param {Array} sample2
-     * @returns {Number}
+     * @returns {number}
      */
     tTestTwoSample(sample1, sample2) {
         this._validator.validate('sample1', sample1, ['isArray', 'length > 0']);
@@ -463,7 +463,7 @@ class StatisticalMethod {
     /**
      * [Simple linear regression](http://en.wikipedia.org/wiki/Simple_linear_regression)
      *
-     * @param {Array<Array<Number>>} data
+     * @param {Array<Array<number>>} data
      * @returns {*}
      */
     linearRegression(data) {

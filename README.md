@@ -3,7 +3,7 @@
 
 [![NPM](https://nodei.co/npm/statistical-js.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/statistical-js/)
 
-# Statistical-JS
+![Statistical-js](/logo/my_logo.png)
 
 Library that provide you some statistics which are useful and with the best performance execution.
 
@@ -72,10 +72,10 @@ The command to lint code and fix it at the same time
 
 ## build
 
-To build dev version `./lib/statistical.js`
+To build dev version `./lib/statistical.methods.js`
 > npm run build:dev
 
-If you want to generate the production version `./lib/statistical.min.js`
+If you want to generate the production version `./lib/statistical.methods.min.js`
 > npm run build:prod
 
 ## License
