@@ -146,7 +146,7 @@ class StatisticalMethod {
      */
     quantile(sample, index) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
-        this._validator.validate('index', index, ['isnumber', [0, 1]]);
+        this._validator.validate('index', index, ['isNumber', [0, 1]]);
 
         const sortedSample = sample.sort((a, b) => a - b);
 
@@ -162,7 +162,7 @@ class StatisticalMethod {
      */
     percentile(sample, index) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
-        this._validator.validate('index', index, ['isnumber', [0, 100]]);
+        this._validator.validate('index', index, ['isNumber', [0, 100]]);
 
         const sortedSample = sample.sort((a, b) => a - b);
         return sortedSample[Math.ceil((index / 100) * sample.length)];
@@ -200,7 +200,7 @@ class StatisticalMethod {
      * @returns {number}
      */
     factorial(n) {
-        this._validator.validate('n', n, ['isnumber', 'positive']);
+        this._validator.validate('n', n, ['isNumber', 'positive']);
 
         let factorialResult = 1;
         for (let i = 2; i <= n; i++) {
@@ -308,8 +308,8 @@ class StatisticalMethod {
      * @returns {{}}
      */
     binomial(trials, probability) {
-        this._validator.validate('trials', trials, ['isnumber']);
-        this._validator.validate('probability', probability, ['isnumber', [0, 1]]);
+        this._validator.validate('trials', trials, ['isNumber']);
+        this._validator.validate('probability', probability, ['isNumber', [0, 1]]);
 
         let x = 0;
         let cumulativeProbability = 0;
@@ -331,7 +331,7 @@ class StatisticalMethod {
      * @returns {Object}
      */
     bernoulli(p) {
-        this._validator.validate('p', p, ['isnumber', [0, 1]]);
+        this._validator.validate('p', p, ['isNumber', [0, 1]]);
         return this.binomial(1, p);
     }
 
@@ -372,7 +372,7 @@ class StatisticalMethod {
     chiSquaredGoodnessOfFit(sample, distributionType, significance) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
         this._validator.validate('distributionType', distributionType, ['isFunction']);
-        this._validator.validate('significance', significance, ['isnumber', 'positive']);
+        this._validator.validate('significance', significance, ['isNumber', 'positive']);
 
         /* Generate an array with number of ocurences for each data in sample. */
         let observedFrequencies = [];
@@ -425,7 +425,7 @@ class StatisticalMethod {
      */
     tTestOneSample(sample, mu) {
         this._validator.validate('sample', sample, ['isArray', 'length > 0']);
-        this._validator.validate('mu', mu, ['isnumber']);
+        this._validator.validate('mu', mu, ['isNumber']);
 
         const mean = this.mean(sample);
         const sd = this.stdDeviation(sample);
