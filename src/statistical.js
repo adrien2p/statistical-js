@@ -30,7 +30,11 @@ class Statistical {
     /**
      * Allow to updates statistical settings.
      *
-     * @param {*|object} options
+     * @param {object} options
+     * @param {object} options.cache - options about the cache
+     * @param {boolean} options.cache.enabled - enabled or disabled the cache
+     * @param {number} options.cache.rootElementCount - number of called method cached
+     * @param {number} options.cache.subElementCount - number of result for each called method cached
      */
     set settings(options) {
         this._settings = {

@@ -4,6 +4,13 @@
  * single-layer [Perceptron Classifier](http://en.wikipedia.org/wiki/Perceptron)
  */
 export default class Perceptron {
+    /**
+     * Create a new Perceptron.
+     *
+     * @param {object} options
+     * @param {number} options.bias
+     * @param {number} options.learningRate
+     */
     constructor(options = {}) {
         this._bias = options._bias || 1;
         this._learningRate = options._learningRate || 0.2;
@@ -13,7 +20,7 @@ export default class Perceptron {
     /**
      * predict result from input data.
      *
-     * @param input - input value to predict [1, 1]
+     * @param {Array} input - input value to predict [1, 1]
      * @returns {number}
      */
     predict(input) {
@@ -30,7 +37,7 @@ export default class Perceptron {
     /**
      * train data to adjust weight for future prediction.
      *
-     * @param data - Contain input - output values { in: [1, 1], out: 1 }
+     * @param {Array} data - Contain input - output values { in: [1, 1], out: 1 }
      */
     train(data) {
         if (!data.in) throw new Error('Missing parameter input.');
