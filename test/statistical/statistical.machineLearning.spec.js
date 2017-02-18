@@ -6,7 +6,10 @@ const statistical = require('../../src/statistical');
 describe('statistical', () => {
     describe('machine learning provide', () => {
         it('perceptron and should predict result with linear model', () => {
-            const perceptron = new statistical.ml.Perceptron();
+            const perceptron = new statistical.ml.Perceptron({
+                learningRate: 0.4,
+                bias: 0.5
+            });
 
             for (let i = 0; i < 10; i++) {
                 perceptron.train({ in: [1, 1], out: 1 });

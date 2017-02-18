@@ -15,7 +15,10 @@ Library that provide you some statistics which are useful and with the best perf
 const statistical = require('statistical-js');
 
 const res = statistical.methods.sum([1, 2, 3]);
-const p = new statistical.ml.Perceptron();
+const p = new statistical.ml.Perceptron({
+    learningRate: 0.3,
+    bias: 0.5
+});
 ```
 
 ### Performance
