@@ -13,7 +13,9 @@ Library that provide you some statistics which are useful and with the best perf
 ```javascript
 /* how to import and use it */
 const statistical = require('statistical-js');
+
 const res = statistical.methods.sum([1, 2, 3]);
+const p = new statistical.ml.Perceptron();
 ```
 
 ### Performance
@@ -54,8 +56,10 @@ Click there see the complete [documentation](https://github.com/adrien2p/statist
     - T-test - two sample (t-value)
     - Linear regression (slope, intersect)
 
-As soon as possible, more features will be available.
+- Machine learning
+    - Perceptron (Single layer)
 
+As soon as possible, more features will be available.
 
 ## Test
 

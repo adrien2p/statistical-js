@@ -4,7 +4,7 @@ import hook from './utils/hook';
 import cacheManager from './utils/cacheManager';
 import Validator from './utils/validator';
 import StatisticalMethod from './methods/statistical.method';
-
+import Perceptron from './machineLearning/perceptron';
 
 class Statistical {
     constructor() {
@@ -43,8 +43,24 @@ class Statistical {
         cacheManager.settings = this._settings.cache;
     }
 
+    /**
+     * Basics plus advanced statistics are provided in this member.
+     *
+     * @returns {*}
+     */
     get methods() {
         return hook.cache(new StatisticalMethod(), cacheManager);
+    }
+
+    /**
+     * Predictive model are provided in this member.
+     *
+     * @returns {{Perceptron: Perceptron}}
+     */
+    get ml() {
+        return {
+            Perceptron: Perceptron
+        };
     }
 }
 
