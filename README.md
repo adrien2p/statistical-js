@@ -10,11 +10,21 @@ Library that provide you some statistics which are useful and with the best perf
 ## Getting Started
 
 `npm install --save statistcal-js`
+
+import the library :
 ```javascript
 /* how to import and use it */
 const statistical = require('statistical-js');
+```
 
+use statistical methods :
+```js
 const res = statistical.methods.sum([1, 2, 3]);
+```
+
+or use machine learning methods :
+
+```js
 const p = new statistical.ml.Perceptron({
     learningRate: 0.3,
     bias: 0.5

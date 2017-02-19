@@ -49,7 +49,7 @@ export default class Perceptron {
             /* Adjust new weight */
             this._weights = this._weights.map((weight, i) => {
                 weight += this._learningRate * error * data.in[i];
-                return weight
+                return weight;
             });
             this._bias += error;
         }
