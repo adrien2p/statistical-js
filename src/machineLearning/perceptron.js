@@ -1,6 +1,6 @@
 'use strict';
 
-export default class Perceptron {
+class Perceptron {
     /**
      * Create a new Perceptron single-layer [Perceptron Classifier](http://en.wikipedia.org/wiki/Perceptron).
      *
@@ -59,3 +59,5 @@ export default class Perceptron {
         return this;
     }
 }
+
+export default Perceptron;
