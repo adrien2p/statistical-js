@@ -5,6 +5,9 @@ import epsilon from '../constante/epsilon';
 import chiSquaredTable from '../constante/chiSquaredTable';
 
 class StatisticalMethod {
+    /**
+     * Create a new object that provide all statistical methods.
+     */
     constructor() {
         this._validator = new Validator();
         this._chiSquaredProbTable = chiSquaredTable;

@@ -1,11 +1,8 @@
 'use strict';
 
-/**
- * single-layer [Perceptron Classifier](http://en.wikipedia.org/wiki/Perceptron)
- */
 export default class Perceptron {
     /**
-     * Create a new Perceptron.
+     * Create a new Perceptron single-layer [Perceptron Classifier](http://en.wikipedia.org/wiki/Perceptron).
      *
      * @param {object} options
      * @param {number} options.bias

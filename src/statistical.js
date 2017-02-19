@@ -3,10 +3,13 @@
 import hook from './utils/hook';
 import cacheManager from './utils/cacheManager';
 import Validator from './utils/validator';
-import StatisticalMethod from './methods/statistical.method';
-import Perceptron from './machineLearning/perceptron';
+import StatisticalMethod from './methods/StatisticalMethod';
+import Perceptron from './machineLearning/Perceptron';
 
 class Statistical {
+    /**
+     * Create a new object that provide all method and configuration of the library.
+     */
     constructor() {
         this._validator = new Validator();
         this._settings = {
