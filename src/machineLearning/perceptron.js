@@ -34,7 +34,9 @@ export default class Perceptron {
     /**
      * train data to adjust weight for future prediction.
      *
-     * @param {Array} data - Contain input - output values { in: [1, 1], out: 1 }
+     * @param {object} data - Contain input - output values { in: [1, 1], out: 1 }
+     * @param {Array} data.in - input data
+     * @param {number} data.out - outputData
      */
     train(data) {
         if (!data.in) throw new Error('Missing parameter input.');
