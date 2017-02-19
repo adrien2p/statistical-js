@@ -1,6 +1,6 @@
 {
   "name": "statistical-js",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Simple to use, completely useful",
   "main": "index",
   "directories": {
@@ -53,7 +53,9 @@
     "linear",
     "math",
     "probability",
-    "statistics"
+    "statistics",
+    "machine learning",
+    "perceptron"
   ],
   "author": "Adrien de Peretti <adrien.deperetti.freelance@gmail.com>",
   "license": "MIT",
