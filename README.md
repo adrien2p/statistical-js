@@ -9,7 +9,7 @@ Library that provide you some statistics which are useful and with the best perf
 
 ## Getting Started
 
-`npm install --save statistcal-js`
+`npm install --save statistical-js`
 
 import the library :
 ```javascript
