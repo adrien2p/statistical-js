@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/adrien2p/statistical-js.svg?branch=master)](https://travis-ci.org/adrien2p/statistical-js)
 [![Coverage Status](https://coveralls.io/repos/github/adrien2p/statistical-js/badge.svg?branch=master)](https://coveralls.io/github/adrien2p/statistical-js?branch=master)
 [![npm version](https://badge.fury.io/js/statistical-js.svg)](https://badge.fury.io/js/statistical-js)
-[![npm](https://img.shields.io/npm/dm/localeval.svg)](https://badge.fury.io/js/statistical-js)
+[![npm](https://img.shields.io/npm/dm/statistical-js.svg)](https://badge.fury.io/js/statistical-js)
 
 ![Statistical-js](/logo/my_logo.png)
 
